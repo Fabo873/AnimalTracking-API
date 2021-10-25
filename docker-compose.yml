@@ -1,0 +1,21 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  database:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: REPORTS
+      MARIADB_USER: eduardo
+      MARIADB_PASSWORD: eduardo
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - "./sql/mycustom.cnf:/etc/mysql/conf.d/custom.cnf"
+      - "./sql/build_tables.sql:/docker-entrypoint-initdb.d/1.sql"
+      - "./sql/insert_locations.sql:/docker-entrypoint-initdb.d/2.sql"

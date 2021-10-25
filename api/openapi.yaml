@@ -1,0 +1,2901 @@
+openapi: 3.0.0
+info:
+  description: Animal Tracking
+  version: 0.0.1
+  title: Animal Tracking
+paths:
+  /tracking:
+    get:
+      tags:
+        - Tracking
+      summary: Get All Tracking Data
+      description: Gets All Tracking Data
+      parameters:
+        - name: folio
+          in: query
+          description: The specimen that needs to be fetched.
+          required: false
+          schema:
+            type: string
+            pattern: ^([0][1-9]|[1-2][0-9]|[3][0-1])([0][1-9]|[1][0-2])([0-9][0-9])([0][1-9]|[1-9][0-9])([A-Z]{4})$
+        - name: date_from
+          in: query
+          description: The date_from that needs to be fetched.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          description: The date_to that needs to be fetched.
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: reviewed
+          in: query
+          description: The indicator that shows if the tracking has been done.
+          required: false
+          schema:
+            type: boolean
+        - name: weigth
+          in: query
+          description: The weigth that needs to be fetched.
+          required: false
+          schema:
+            type: number
+        - name: size
+          in: query
+          description: The size that needs to be fetched.
+          required: false
+          schema:
+            type: number
+        - name: destination_id
+          in: query
+          description: The destination that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        
+      operationId: getAllTracking
+      responses:
+        200:
+          description: Successful Operation - Get Tracking 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tracking'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Tracking
+      summary: Create Tracking Data
+      description: Creates a new Tracking entree
+      operationId: createTracking
+      requestBody:
+        description: Entree to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrackingAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        404:
+          description: Specimen not found
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /tracking/{id}:
+    get:
+      tags:
+        - Tracking
+      summary: Get Tracking Data
+      description: Get Tracking Data by ID
+      operationId: getTrackingById
+      parameters:
+        - name: id
+          in: path
+          description: The Tracking Data id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get Tracking Data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tracking'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Tracking Data not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Tracking
+      summary: Update Tracking Data
+      description: Updates the Tracking Data with the specified id.
+      operationId: updateTracking
+      parameters:
+        - name: id
+          in: path
+          description: The Tracking Data id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Tracking Data to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackingAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Tracking Data Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Tracking Data not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Tracking
+      summary: Delete Tracking Data
+      description: Deletes the Tracking Data with the specified ID
+      operationId: deleteTracking
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Tracking Data that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Tracking Data not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /final:
+    get:
+      tags:
+        - Final Destination
+      summary: Get All Destination Data
+      description: Gets All Destination Data
+      parameters:
+        - name: folio
+          in: query
+          description: The specimen that needs to be fetched.
+          required: false
+          schema:
+            type: string
+            pattern: ^([0][1-9]|[1-2][0-9]|[3][0-1])([0][1-9]|[1][0-2])([0-9][0-9])([0][1-9]|[1-9][0-9])([A-Z]{4})$
+        - name: destination_id
+          in: query
+          description: The destination that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: weigth
+          in: query
+          description: The weigth that needs to be fetched.
+          required: false
+          schema:
+            type: number
+        - name: size
+          in: query
+          description: The size that needs to be fetched.
+          required: false
+          schema:
+            type: number
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllFinal
+      responses:
+        200:
+          description: Successful Operation - Get Destination Data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FinalDestination'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Final Destination
+      summary: Create Destination
+      description: Creates a new Destination entree
+      operationId: createFinal
+      requestBody:
+        description: Entree to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FinalDestinationAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        404:
+          description: Specimen not found
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /final/{id}:
+    get:
+      tags:
+        - Final Destination
+      summary: Get Destination Data
+      description: Get Destination Data by ID
+      operationId: getFinalById
+      parameters:
+        - name: id
+          in: path
+          description: The Destination Data id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get Destination Data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinalDestination'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Destination not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Final Destination
+      summary: Update Destination Data
+      description: Updates the Destination Data with the specified id.
+      operationId: updateFinal
+      parameters:
+        - name: id
+          in: path
+          description: The Destination Data id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Destination Data to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinalDestinationAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Destination Data Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Destination Data not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Final Destination
+      summary: Delete Destination Data
+      description: Deletes the Destination Data with the specified ID
+      operationId: deleteFinal
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Destination that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Destination Data not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /reception:
+    get:
+      tags:
+        - Reception
+      summary: Get All Reception Data
+      description: Gets All Reception Data
+      parameters:
+        - name: folio
+          in: query
+          description: The specimen that needs to be fetched.
+          required: false
+          schema:
+            type: string
+            pattern: ^([0][1-9]|[1-2][0-9]|[3][0-1])([0][1-9]|[1][0-2])([0-9][0-9])([0][1-9]|[1-9][0-9])([A-Z]{4})$
+        - name: deliver_person_id
+          in: query
+          description: The deliver_person_id that needs to be fetched.
+          required: false
+          schema:
+            type: string
+            maxLength: 100
+        - name: reciever_person_id
+          in: query
+          description: The reciever_person_id that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: location_id
+          in: query
+          description: The location_id that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllReception
+      responses:
+        200:
+          description: Successful Operation - Get Destination 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reception'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Reception
+      summary: Create Reception Data
+      description: Creates a new Reception entree
+      operationId: createReception
+      requestBody:
+        description: Entree to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReceptionAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        404:
+          description: Specimen not found
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /reception/{id}:
+    get:
+      tags:
+        - Reception
+      summary: Get Reception Data
+      description: Get Destination Data by ID
+      operationId: getReceptionById
+      parameters:
+        - name: id
+          in: path
+          description: The Reception Data id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get Reception Data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reception'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Reception Data not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Reception
+      summary: Update Reception Data
+      description: Updates the Reception Data with the specified id.
+      operationId: updateReception
+      parameters:
+        - name: id
+          in: path
+          description: The Reception Data id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Reception Data to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReceptionAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Destination Data Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Reception Data not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Reception
+      summary: Delete Reception Data
+      description: Deletes the Reception Data with the specified ID
+      operationId: deleteReception
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Reception that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Reception Data not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /specimen:
+    get:
+      tags:
+        - Specimen
+      summary: Get All Specimen Data
+      description: Gets All Specimen Data
+      parameters:
+        - name: species
+          in: query
+          description: The specimen that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: condition
+          in: query
+          description: The condition that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: weigth
+          in: query
+          description: The weigth that needs to be fetched.
+          required: false
+          schema:
+            type: number
+        - name: size
+          in: query
+          description: The size that needs to be fetched.
+          required: false
+          schema:
+            type: number
+        - name: gender
+          in: query
+          description: The size that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: age
+          in: query
+          description: The size that needs to be fetched.
+          required: false
+          schema:
+            type: number
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllSpecimen
+      responses:
+        200:
+          description: Successful Operation - Get Specimen 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Specimen'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Specimen
+      summary: Create Specimen
+      description: Creates a new Specimen entree
+      operationId: createSpecimen
+      requestBody:
+        description: Entree to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SpeciemenAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        404:
+          description: Parent node not found
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /specimen/{id}:
+    get:
+      tags:
+        - Specimen
+      summary: Get Specimen Data
+      description: Get Specimen Data by ID
+      operationId: getSpecimenById
+      parameters:
+        - name: id
+          in: path
+          description: The Specimen Data id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get Specimen Data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specimen'
+        404:
+          description: Node not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Specimen
+      summary: Update Specimen Data
+      description: Updates the Tracking Data with the specified id.
+      operationId: updateSpecimen
+      parameters:
+        - name: id
+          in: path
+          description: The Specimen Data id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Specimen Data to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpeciemenAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Tracking Data Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Relationship not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Specimen
+      summary: Delete Specimen Data
+      description: Deletes the Specimen Data with the specified ID
+      operationId: deleteSpecimen
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Specimen that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        404:
+          description: Node not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /age:
+    get:
+      tags:
+        - Age
+      summary: Get All Ages
+      description: Gets All Ages
+      parameters:
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllAges
+      responses:
+        200:
+          description: Successful Operation - Get Ages 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Age'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Age
+      summary: Create Age
+      description: Creates a new Age
+      operationId: createAge
+      requestBody:
+        description: Age to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgeAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /age/{id}:
+    get:
+      tags:
+        - Age
+      summary: Get Age
+      description: Get Age by ID
+      operationId: getAgeById
+      parameters:
+        - name: id
+          in: path
+          description: The Age id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+            maximum: 255
+      responses:
+        200:
+          description: Successful Operation - Get Age
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Age'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Age not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Age
+      summary: Update Age
+      description: Updates the Age with the specified id.
+      operationId: updateAge
+      parameters:
+        - name: id
+          in: path
+          description: The Age id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+            maximum: 255
+      requestBody:
+        description: Age to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgeAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Age Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Age not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Age
+      summary: Delete Age
+      description: Deletes the Age with the specified ID
+      operationId: deleteAge
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Age that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+            maximum: 255
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Age not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /gender:
+    get:
+      tags:
+        - Gender
+      summary: Get All Genders
+      description: Gets All Genders
+      parameters:
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllGenders
+      responses:
+        200:
+          description: Successful Operation - Get Genders 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Gender'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Gender
+      summary: Create Gender
+      description: Creates a new Gender
+      operationId: createGender
+      requestBody:
+        description: Gender to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenderAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /gender/{id}:
+    get:
+      tags:
+        - Gender
+      summary: Get Gender
+      description: Get Gender by ID
+      operationId: getGenderById
+      parameters:
+        - name: id
+          in: path
+          description: The Gender id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+            maximum: 255
+      responses:
+        200:
+          description: Successful Operation - Get Gender
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Gender'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Gender not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Gender
+      summary: Update Gender
+      description: Updates the Gender with the specified id.
+      operationId: updateGender
+      parameters:
+        - name: id
+          in: path
+          description: The Gender id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+            maximum: 255
+      requestBody:
+        description: Gender to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenderAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Gender Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Gender not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Gender
+      summary: Delete Gender
+      description: Deletes the Gender with the specified ID
+      operationId: deleteGender
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Gender that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+            maximum: 255
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Gender not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /destination:
+    get:
+      tags:
+        - Destination
+      summary: Get All Destinations
+      description: Gets All Destinations
+      parameters:
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllDestinations
+      responses:
+        200:
+          description: Successful Operation - Get Destinations 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Destination'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Destination
+      summary: Create Destination
+      description: Creates a new Destination
+      operationId: createDestination
+      requestBody:
+        description: Destination to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DestinationAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /destination/{id}:
+    get:
+      tags:
+        - Destination
+      summary: Get Destination
+      description: Get Destination by ID
+      operationId: getDestinationById
+      parameters:
+        - name: id
+          in: path
+          description: The Destination id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+            maximum: 255
+      responses:
+        200:
+          description: Successful Operation - Get Destination
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Destination not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Destination
+      summary: Update Destination
+      description: Updates the Destination with the specified id.
+      operationId: updateDestination
+      parameters:
+        - name: id
+          in: path
+          description: The Destination id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+            maximum: 255
+      requestBody:
+        description: Destination to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DestinationAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Destination Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Destination not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Destination
+      summary: Delete Destination
+      description: Deletes the Destination with the specified ID
+      operationId: deleteDestination
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Destination that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+            maximum: 255
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Destination not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /type:
+    get:
+      tags:
+        - AnimalType
+      summary: Get All AnimalTypes
+      description: Gets All AnimalTypes
+      parameters:
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllTypes
+      responses:
+        200:
+          description: Successful Operation - Get AnimalTypes 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnimalType'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - AnimalType
+      summary: Create AnimalType
+      description: Creates a new AnimalType
+      operationId: createType
+      requestBody:
+        description: AnimalType to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnimalTypeAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /type/{id}:
+    get:
+      tags:
+        - AnimalType
+      summary: Get AnimalType
+      description: Get AnimalType by ID
+      operationId: getTypeById
+      parameters:
+        - name: id
+          in: path
+          description: The AnimalType id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get AnimalType
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnimalType'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: AnimalType not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - AnimalType
+      summary: Update AnimalType
+      description: Updates the AnimalType with the specified id.
+      operationId: updateType
+      parameters:
+        - name: id
+          in: path
+          description: The AnimalType id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: AnimalType to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnimalTypeAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - AnimalType Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: AnimalType not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - AnimalType
+      summary: Delete AnimalType
+      description: Deletes the AnimalType with the specified ID
+      operationId: deleteType
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the AnimalType that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: AnimalType not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /species:
+    get:
+      tags:
+        - Species
+      summary: Get All Species
+      description: Gets All Species
+      parameters:
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllSpecies
+      responses:
+        200:
+          description: Successful Operation - Get Species 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Species'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Species
+      summary: Create Species
+      description: Creates a new Species
+      operationId: createSpecies
+      requestBody:
+        description: Species to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SpeciesAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /species/{id}:
+    get:
+      tags:
+        - Species
+      summary: Get Species
+      description: Get Species by ID
+      operationId: getSpeciesById
+      parameters:
+        - name: id
+          in: path
+          description: The Species id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get Species
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Species'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Species not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Species
+      summary: Update Species
+      description: Updates the Species with the specified id.
+      operationId: updateSpecies
+      parameters:
+        - name: id
+          in: path
+          description: The Species id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Species to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpeciesAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Species Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Species not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Species
+      summary: Delete Species
+      description: Deletes the Species with the specified ID
+      operationId: deleteSpecies
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Species that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Species not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /state:
+    get:
+      tags:
+        - State
+      summary: Get All States
+      description: Gets All States
+      parameters:
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllStates
+      responses:
+        200:
+          description: Successful Operation - Get States 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/State'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - State
+      summary: Create State
+      description: Creates a new State
+      operationId: createState
+      requestBody:
+        description: State to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StateAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /state/{id}:
+    get:
+      tags:
+        - State
+      summary: Get State
+      description: Get State by ID
+      operationId: getStateById
+      parameters:
+        - name: id
+          in: path
+          description: The State id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get State
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/State'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: State not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - State
+      summary: Update State
+      description: Updates the State with the specified id.
+      operationId: updateState
+      parameters:
+        - name: id
+          in: path
+          description: The State id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: State to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StateAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - State Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: State not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - State
+      summary: Delete State
+      description: Deletes the State with the specified ID
+      operationId: deleteState
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the State that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: State not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /municipality:
+    get:
+      tags:
+        - Municipality
+      summary: Get All Municipalities
+      description: Gets All Municipalities
+      parameters:
+        - name: state_id
+          in: query
+          description: The state were the municipality belongs.
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllMunicipalities
+      responses:
+        200:
+          description: Successful Operation - Get Municipalities 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Municipality'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Municipality
+      summary: Create Municipality
+      description: Creates a new Municipality
+      operationId: createMunicipality
+      requestBody:
+        description: Municipality to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MunicipalityAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /municipality/{id}:
+    get:
+      tags:
+        - Municipality
+      summary: Get Municipality
+      description: Get Municipality by ID
+      operationId: getMunicipalityById
+      parameters:
+        - name: id
+          in: path
+          description: The Municipality id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get Municipality
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Municipality'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Municipality not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Municipality
+      summary: Update Municipality
+      description: Updates the Municipality with the specified id.
+      operationId: updateMunicipality
+      parameters:
+        - name: id
+          in: path
+          description: The Municipality id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Municipality to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MunicipalityAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Municipality Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Municipality not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Municipality
+      summary: Delete Municipality
+      description: Deletes the Municipality with the specified ID
+      operationId: deleteMunicipality
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Municipality that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Municipality not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /location:
+    get:
+      tags:
+        - Location
+      summary: Get All Locations
+      description: Gets All Locations
+      parameters:
+        - name: state_id
+          in: query
+          description: The state were the location belongs
+          required: false
+          schema:
+            type: integer
+        - name: municipality_id
+          in: query
+          description: The municipality were the location belongs.
+          required: false
+          schema:
+            type: integer
+        - name: type
+          in: query
+          description: The municipality were the location belongs.
+          required: false
+          schema:
+            type: string
+            maxLength: 1
+            minLength: 1
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllLocations
+      responses:
+        200:
+          description: Successful Operation - Get Locations 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Location
+      summary: Create Location
+      description: Creates a new Location
+      operationId: createLocation
+      requestBody:
+        description: Location to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocationAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /location/{id}:
+    get:
+      tags:
+        - Location
+      summary: Get Location
+      description: Get Location by ID
+      operationId: getLocationById
+      parameters:
+        - name: id
+          in: path
+          description: The Location id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get Location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Location not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Location
+      summary: Update Location
+      description: Updates the Location with the specified id.
+      operationId: updateLocation
+      parameters:
+        - name: id
+          in: path
+          description: The Location id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Location to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Location Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Location not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Location
+      summary: Delete Location
+      description: Deletes the Location with the specified ID
+      operationId: deleteLocation
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Location that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Location not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /user:
+    get:
+      tags:
+        - User
+      summary: Get All Users
+      description: Gets All Users
+      parameters:
+        - name: username
+          in: query
+          description: The username of the user to be fetched.
+          required: false
+          schema:
+            type: string
+            minLength: 4
+            maxLength: 50
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllUsers
+      responses:
+        200:
+          description: Successful Operation - Get Users 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - User
+      summary: Create User
+      description: Creates a new User
+      operationId: createUser
+      requestBody:
+        description: User to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /user/{id}:
+    get:
+      tags:
+        - User
+      summary: Get User
+      description: Get User by ID
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: The User id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: User not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - User
+      summary: Update User
+      description: Updates the User with the specified id.
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          description: The User id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: User to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - User Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: User not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - User
+      summary: Delete User
+      description: Deletes the User with the specified ID
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the User that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: User not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /person:
+    get:
+      tags:
+        - Person
+      summary: Get All Persons
+      description: Gets All Persons
+      parameters:
+        - name: user_id
+          in: query
+          description: The user of the person to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: The name of the person to be fetched.
+          required: false
+          schema:
+            type: string
+            maxLength: 150
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+      operationId: getAllPersons
+      responses:
+        200:
+          description: Successful Operation - Get Persons 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        400:
+          description: Bad Request
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Person
+      summary: Create Person
+      description: Creates a new Person
+      operationId: createPerson
+      requestBody:
+        description: Person to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PersonAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+        400:
+          description: Invalid input
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /person/{id}:
+    get:
+      tags:
+        - Person
+      summary: Get Person
+      description: Get Person by ID
+      operationId: getPersonById
+      parameters:
+        - name: id
+          in: path
+          description: The Person id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation - Get Person
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Person not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Person
+      summary: Update Person
+      description: Updates the Person with the specified id.
+      operationId: updatePerson
+      parameters:
+        - name: id
+          in: path
+          description: The Person id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Person to Update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonAttributes'
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Person Updated
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Person not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Person
+      summary: Delete Person
+      description: Deletes the Person with the specified ID
+      operationId: deletePerson
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Person that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful Operation
+          content: {}
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: Person not found
+          content: {}
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+servers:
+  - url: /v1
+security:
+  - BearerAuth: []
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    TrackingAttributes:
+      type: object
+      required:
+        - specimen_id
+        - date
+        - reviewed
+        - destination_id
+      properties:
+        specimen_id:
+          type: integer
+        date:
+          type: string
+          format: date-time
+        reviewed:
+          type: boolean
+        weigth:
+          type: number
+        size:
+          type: number
+        condition:
+          type: integer
+          maxLength: 200
+        destination_id:
+          type: integer
+          maximum: 255
+    Tracking:
+      allOf:
+        - $ref: '#/components/schemas/TrackingAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    FinalDestinationAttributes:
+      type: object
+      required:
+        - specimen_id
+        - destination_id
+      properties:
+        specimen_id:
+          type: integer
+        destination_id:
+          type: integer
+          maximum: 255
+        condition:
+          type: string
+          maxLength: 200
+        weigth:
+          type: number
+        size:
+          type: number
+        notes:
+          type: string
+          maxLength: 500
+    FinalDestination:
+      allOf:
+        - $ref: '#/components/schemas/FinalDestinationAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ReceptionAttributes:
+      type: object
+      required:
+        - specimen_id
+        - deliver_person
+        - reciever_person_id
+        - location_id
+      properties:
+        specimen_id:
+          type: integer
+        deliver_person:
+          type: string
+          maxLength: 100
+        reciever_person_id:
+          type: integer
+        location_id:
+          type: integer
+    Reception:
+      allOf:
+        - $ref: '#/components/schemas/ReceptionAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    SpeciemenAttributes:
+      type: object
+      required:
+        - person_id
+        - animalType_id
+        - species_id
+        - age_id
+        - gender_id
+        - destination_id
+      properties:
+        person_id:
+          type: integer
+        animalType_id:
+          type: integer
+        species_id:
+          type: integer
+        gender_id:
+          type: integer
+          maximum: 255
+        age_id:
+          type: integer
+          maximum: 255
+        destination_id:
+          type: integer
+          maximum: 255
+        condition:
+          type: string
+          maxLength: 200
+        weigth:
+          type: number
+        size:
+          type: number
+    Specimen:
+      allOf:
+        - $ref: '#/components/schemas/SpeciemenAttributes'
+      required:
+        - id
+        - folio
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        folio:
+          type: string
+          pattern: ^([0][1-9]|[1-2][0-9]|[3][0-1])([0][1-9]|[1][0-2])([0-9][0-9])([0][1-9]|[1-9][0-9])([A-Z]{4})$
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    AgeAttributes:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          maxLength: 50
+    Age:
+      allOf:
+        - $ref: '#/components/schemas/AgeAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+          maximum: 255
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    AnimalTypeAttributes:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          maxLength: 50
+    AnimalType:
+      allOf:
+        - $ref: '#/components/schemas/AnimalTypeAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    DestinationAttributes:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          maxLength: 50
+    Destination:
+      allOf:
+        - $ref: '#/components/schemas/DestinationAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+          maximum: 255
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    GenderAttributes:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          maxLength: 50
+    Gender:
+      allOf:
+        - $ref: '#/components/schemas/GenderAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+          maximum: 255
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    SpeciesAttributes:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          maxLength: 50
+    Species:
+      allOf:
+        - $ref: '#/components/schemas/SpeciesAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    StateAttributes:
+      type: object
+      required:
+        - name
+        - initials
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        initials:
+          type: string
+          maxLength: 50
+    State:
+      allOf:
+        - $ref: '#/components/schemas/StateAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    MunicipalityAttributes:
+      type: object
+      required:
+        - name
+        - state_id
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        state_id:
+          type: integer
+    Municipality:
+      allOf:
+        - $ref: '#/components/schemas/MunicipalityAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    LocationAttributes:
+      type: object
+      required:
+        - name
+        - municipality_id
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        type:
+          type: string
+          minLength: 1
+          maxLength: 1
+        lat:
+          type: number
+        lon:
+          type: number
+        altitude:
+          type: integer
+        municipality_id:
+          type: integer
+    Location:
+      allOf:
+        - $ref: '#/components/schemas/LocationAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    UserAttributes:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 4
+          maxLength: 50
+        password:
+          type: string
+          minLength: 64
+          maxLength: 64
+    User:
+      allOf:
+        - $ref: '#/components/schemas/UserAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    PersonAttributes:
+      type: object
+      required:
+        - user_id
+        - name
+        - first_lastname
+        - second_lastname
+      properties:
+        user_id:
+          type: integer
+        name:
+          type: string
+          minLength: 50
+        first_lastname:
+          type: string
+          minLength: 50
+        second_lastname:
+          type: string
+          minLength: 50
+    Person:
+      allOf:
+        - $ref: '#/components/schemas/PersonAttributes'
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        status:
+          type: string
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
