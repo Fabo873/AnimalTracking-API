@@ -44,30 +44,35 @@ paths:
           required: false
           schema:
             type: number
+            minimum: 0
         - name: size
           in: query
           description: The size that needs to be fetched.
           required: false
           schema:
             type: number
+            minimum: 0
         - name: destination_id
           in: query
           description: The destination that needs to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
         
       operationId: getAllTracking
       responses:
@@ -76,18 +81,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Tracking'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tracking'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Tracking
@@ -103,17 +126,49 @@ paths:
         required: true
       responses:
         201:
-          description: Successful operation- Component created
+          description: Successful Operation - Post Tracking 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Tracking'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Specimen not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /tracking/{id}:
     get:
       tags:
@@ -128,13 +183,19 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get Tracking Data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tracking'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Tracking'
         400:
           description: Bad Request
           content: {}
@@ -160,12 +221,18 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: Tracking Data to Update
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TrackingAttributes'
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Tracking'
         required: true
       responses:
         200:
@@ -196,22 +263,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Tracking Data not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /final:
     get:
       tags:
@@ -232,30 +329,35 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: weigth
           in: query
           description: The weigth that needs to be fetched.
           required: false
           schema:
             type: number
+            minimum: 0
         - name: size
           in: query
           description: The size that needs to be fetched.
           required: false
           schema:
             type: number
+            minimum: 0
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllFinal
       responses:
         200:
@@ -263,18 +365,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/FinalDestination'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FinalDestination'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Final Destination
@@ -291,16 +411,48 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/FinalDestination'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Specimen not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /final/{id}:
     get:
       tags:
@@ -315,25 +467,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get Destination Data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FinalDestination'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/FinalDestination'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Destination not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Final Destination
@@ -347,6 +526,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: Destination Data to Update
         content:
@@ -357,19 +537,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Destination Data Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/FinalDestination'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Destination Data not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Final Destination
@@ -383,22 +592,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Destination Data not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /reception:
     get:
       tags:
@@ -426,24 +665,28 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: location_id
           in: query
           description: The location_id that needs to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllReception
       responses:
         200:
@@ -451,18 +694,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Reception'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Reception'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Reception
@@ -479,16 +740,48 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Reception'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Specimen not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /reception/{id}:
     get:
       tags:
@@ -503,25 +796,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get Reception Data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Reception'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Reception'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Reception Data not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Reception
@@ -535,6 +855,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: Reception Data to Update
         content:
@@ -545,19 +866,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Destination Data Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Reception'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Reception Data not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Reception
@@ -571,22 +921,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Reception Data not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /specimen:
     get:
       tags:
@@ -600,48 +980,56 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: condition
           in: query
           description: The condition that needs to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: weigth
           in: query
           description: The weigth that needs to be fetched.
           required: false
           schema:
             type: number
+            minimum: 0
         - name: size
           in: query
           description: The size that needs to be fetched.
           required: false
           schema:
             type: number
+            minimum: 0
         - name: gender
           in: query
-          description: The size that needs to be fetched.
+          description: The gender that needs to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: age
           in: query
-          description: The size that needs to be fetched.
+          description: The age that needs to be fetched.
           required: false
           schema:
-            type: number
+            type: integer
+            minimum: 1
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllSpecimen
       responses:
         200:
@@ -649,15 +1037,25 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Specimen'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Specimen'
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Specimen
@@ -669,21 +1067,53 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SpeciemenAttributes"
+              $ref: '#/components/schemas/SpeciemenAttributes'
         required: true
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Specimen'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Parent node not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /specimen/{id}:
     get:
       tags:
@@ -698,22 +1128,41 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get Specimen Data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Specimen'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Specimen'
         404:
           description: Node not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Specimen
@@ -727,6 +1176,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: Specimen Data to Update
         content:
@@ -737,19 +1187,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Tracking Data Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Specimen'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Relationship not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Specimen
@@ -763,19 +1242,41 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Node not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /age:
     get:
       tags:
@@ -789,12 +1290,14 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllAges
       responses:
         200:
@@ -802,18 +1305,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Age'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Age'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Age
@@ -830,14 +1351,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Age'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /age/{id}:
     get:
       tags:
@@ -852,6 +1396,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
             maximum: 255
       responses:
         200:
@@ -859,19 +1404,45 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Age'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Age'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Age not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Age
@@ -885,6 +1456,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
             maximum: 255
       requestBody:
         description: Age to Update
@@ -896,19 +1468,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Age Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Age'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Age not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Age
@@ -922,23 +1523,53 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
             maximum: 255
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Age not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /gender:
     get:
       tags:
@@ -952,12 +1583,14 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllGenders
       responses:
         200:
@@ -965,18 +1598,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Gender'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Gender'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Gender
@@ -993,14 +1644,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Gender'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /gender/{id}:
     get:
       tags:
@@ -1015,6 +1689,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
             maximum: 255
       responses:
         200:
@@ -1022,19 +1697,45 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Gender'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Gender'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Gender not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Gender
@@ -1048,6 +1749,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
             maximum: 255
       requestBody:
         description: Gender to Update
@@ -1059,19 +1761,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Gender Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Gender'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Gender not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Gender
@@ -1085,23 +1816,53 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
             maximum: 255
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Gender not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /destination:
     get:
       tags:
@@ -1115,12 +1876,14 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllDestinations
       responses:
         200:
@@ -1128,18 +1891,34 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Destination'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Destination
@@ -1156,14 +1935,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Destination'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /destination/{id}:
     get:
       tags:
@@ -1178,6 +1980,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
             maximum: 255
       responses:
         200:
@@ -1185,19 +1988,45 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Destination'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Destination'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Destination not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Destination
@@ -1211,6 +2040,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
             maximum: 255
       requestBody:
         description: Destination to Update
@@ -1222,19 +2052,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Destination Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Destination'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Destination not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Destination
@@ -1248,23 +2107,53 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
             maximum: 255
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Destination not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /type:
     get:
       tags:
@@ -1278,12 +2167,14 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllTypes
       responses:
         200:
@@ -1291,18 +2182,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AnimalType'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AnimalType'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - AnimalType
@@ -1319,14 +2228,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/AnimalType'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /type/{id}:
     get:
       tags:
@@ -1341,25 +2273,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get AnimalType
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AnimalType'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/AnimalType'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: AnimalType not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - AnimalType
@@ -1373,6 +2332,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: AnimalType to Update
         content:
@@ -1383,19 +2343,48 @@ paths:
       responses:
         200:
           description: Successful Operation - AnimalType Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/AnimalType'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: AnimalType not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - AnimalType
@@ -1409,22 +2398,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: AnimalType not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /species:
     get:
       tags:
@@ -1438,12 +2457,14 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllSpecies
       responses:
         200:
@@ -1451,18 +2472,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Species'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Species'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Species
@@ -1479,14 +2518,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Species'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /species/{id}:
     get:
       tags:
@@ -1501,25 +2563,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get Species
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Species'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Species'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Species not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Species
@@ -1533,6 +2622,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: Species to Update
         content:
@@ -1543,19 +2633,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Species Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Species'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Species not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Species
@@ -1569,22 +2688,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Species not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /state:
     get:
       tags:
@@ -1598,12 +2747,14 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllStates
       responses:
         200:
@@ -1611,18 +2762,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/State'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/State'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - State
@@ -1639,14 +2808,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/State'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /state/{id}:
     get:
       tags:
@@ -1661,25 +2853,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get State
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/State'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/State'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: State not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - State
@@ -1693,6 +2912,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: State to Update
         content:
@@ -1703,19 +2923,48 @@ paths:
       responses:
         200:
           description: Successful Operation - State Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/State'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: State not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - State
@@ -1729,22 +2978,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: State not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /municipality:
     get:
       tags:
@@ -1758,18 +3037,21 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllMunicipalities
       responses:
         200:
@@ -1777,18 +3059,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Municipality'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Municipality'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Municipality
@@ -1805,14 +3105,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Municipality'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /municipality/{id}:
     get:
       tags:
@@ -1827,25 +3150,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get Municipality
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Municipality'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Municipality'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Municipality not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Municipality
@@ -1859,6 +3209,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: Municipality to Update
         content:
@@ -1869,19 +3220,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Municipality Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Municipality'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Municipality not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Municipality
@@ -1895,22 +3275,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Municipality not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /location:
     get:
       tags:
@@ -1924,15 +3334,17 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: municipality_id
           in: query
           description: The municipality were the location belongs.
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: type
           in: query
-          description: The municipality were the location belongs.
+          description: The type of the location.
           required: false
           schema:
             type: string
@@ -1944,12 +3356,14 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllLocations
       responses:
         200:
@@ -1957,18 +3371,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Location'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Location'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Location
@@ -1985,14 +3417,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Location'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /location/{id}:
     get:
       tags:
@@ -2007,25 +3462,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get Location
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Location'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Location'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Location not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Location
@@ -2039,6 +3521,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: Location to Update
         content:
@@ -2049,19 +3532,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Location Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Location'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Location not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Location
@@ -2075,22 +3587,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Location not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /user:
     get:
       tags:
@@ -2112,12 +3654,14 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllUsers
       responses:
         200:
@@ -2125,18 +3669,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - User
@@ -2153,14 +3715,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/User'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /user/{id}:
     get:
       tags:
@@ -2175,25 +3760,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get User
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/User'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: User not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - User
@@ -2207,6 +3819,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: User to Update
         content:
@@ -2217,19 +3830,48 @@ paths:
       responses:
         200:
           description: Successful Operation - User Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/User'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: User not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - User
@@ -2243,22 +3885,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: User not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /person:
     get:
       tags:
@@ -2272,6 +3944,7 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: name
           in: query
           description: The name of the person to be fetched.
@@ -2285,12 +3958,14 @@ paths:
           required: false
           schema:
             type: integer
+            minimum: 1
         - name: offset
           in: query
           description: The offset number of entries to be fetched.
           required: false
           schema:
             type: integer
+            minimum: 0
       operationId: getAllPersons
       responses:
         200:
@@ -2298,18 +3973,36 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Person'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Person'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     post:
       tags:
         - Person
@@ -2326,14 +4019,37 @@ paths:
       responses:
         201:
           description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Person'
         400:
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /person/{id}:
     get:
       tags:
@@ -2348,25 +4064,52 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation - Get Person
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Person'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Person'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Person not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     put:
       tags:
         - Person
@@ -2380,6 +4123,7 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         description: Person to Update
         content:
@@ -2390,19 +4134,48 @@ paths:
       responses:
         200:
           description: Successful Operation - Person Updated
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Person'
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Person not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
     delete:
       tags:
         - Person
@@ -2416,32 +4189,62 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
       responses:
         200:
           description: Successful Operation
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         400:
           description: Bad Request
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         404:
           description: Person not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
         500:
           description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
 servers:
-  - url: /v1
+  - url: /
 security:
-  - BearerAuth: []
+  - ApiKeyAuth: []
 components:
   securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
   schemas:
     TrackingAttributes:
       type: object
@@ -2453,6 +4256,7 @@ components:
       properties:
         specimen_id:
           type: integer
+          minimum: 1
         date:
           type: string
           format: date-time
@@ -2460,13 +4264,16 @@ components:
           type: boolean
         weigth:
           type: number
+          minimum: 0
         size:
           type: number
+          minimum: 0
         condition:
-          type: integer
+          type: string
           maxLength: 200
         destination_id:
           type: integer
+          minimum: 1
           maximum: 255
     Tracking:
       allOf:
@@ -2478,6 +4285,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
@@ -2492,16 +4300,20 @@ components:
       properties:
         specimen_id:
           type: integer
+          minimum: 1
         destination_id:
           type: integer
+          minimum: 1
           maximum: 255
         condition:
           type: string
           maxLength: 200
         weigth:
           type: number
+          minimum: 0
         size:
           type: number
+          minimum: 0
         notes:
           type: string
           maxLength: 500
@@ -2515,6 +4327,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
@@ -2531,13 +4344,16 @@ components:
       properties:
         specimen_id:
           type: integer
+          minimum: 1
         deliver_person:
           type: string
           maxLength: 100
         reciever_person_id:
           type: integer
+          minimum: 1
         location_id:
           type: integer
+          minimum: 1
     Reception:
       allOf:
         - $ref: '#/components/schemas/ReceptionAttributes'
@@ -2548,6 +4364,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
@@ -2566,26 +4383,34 @@ components:
       properties:
         person_id:
           type: integer
+          minimum: 1
         animalType_id:
           type: integer
+          minimum: 1
         species_id:
           type: integer
+          minimum: 1
         gender_id:
           type: integer
+          minimum: 1
           maximum: 255
         age_id:
           type: integer
+          minimum: 1
           maximum: 255
         destination_id:
           type: integer
+          minimum: 1
           maximum: 255
         condition:
           type: string
           maxLength: 200
         weigth:
           type: number
+          minimum: 0
         size:
           type: number
+          minimum: 0
     Specimen:
       allOf:
         - $ref: '#/components/schemas/SpeciemenAttributes'
@@ -2597,6 +4422,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         folio:
           type: string
           pattern: ^([0][1-9]|[1-2][0-9]|[3][0-1])([0][1-9]|[1][0-2])([0-9][0-9])([0][1-9]|[1-9][0-9])([A-Z]{4})$
@@ -2624,6 +4450,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
           maximum: 255
         created_on:
           type: string
@@ -2649,6 +4476,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
@@ -2673,6 +4501,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
           maximum: 255
         created_on:
           type: string
@@ -2698,6 +4527,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
           maximum: 255
         created_on:
           type: string
@@ -2723,6 +4553,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
@@ -2751,6 +4582,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
@@ -2768,6 +4600,7 @@ components:
           maxLength: 100
         state_id:
           type: integer
+          minimum: 1
     Municipality:
       allOf:
         - $ref: '#/components/schemas/MunicipalityAttributes'
@@ -2778,6 +4611,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
@@ -2805,6 +4639,7 @@ components:
           type: integer
         municipality_id:
           type: integer
+          minimum: 1
     Location:
       allOf:
         - $ref: '#/components/schemas/LocationAttributes'
@@ -2815,6 +4650,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
@@ -2845,6 +4681,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
@@ -2861,6 +4698,7 @@ components:
       properties:
         user_id:
           type: integer
+          minimum: 1
         name:
           type: string
           minLength: 50
@@ -2880,6 +4718,7 @@ components:
       properties:
         id:
           type: integer
+          minimum: 1
         created_on:
           type: string
           format: date-time
