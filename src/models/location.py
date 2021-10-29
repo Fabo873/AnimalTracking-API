@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import flask
 from helpers.db import db
 from typing import List, Dict
 

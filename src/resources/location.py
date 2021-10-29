@@ -51,6 +51,10 @@ class Location(Resource):
         if not municipality:
             return returnFormat(message='Municipality not found', status=404)
 
+        if LocationModel.find_by_attributes(name=data['name'], municipality_id=data['municipality_id']):
+            if location.name != data['name'] or location.municipality_id != data['municipality_id']:
+                return returnFormat(message='Location already exists', status=400)
+
         location.name = data['name']
         location.municipality_id = data['municipality_id']
         location.type = data['type']

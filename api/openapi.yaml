@@ -11,47 +11,18 @@ paths:
       summary: Get All Tracking Data
       description: Gets All Tracking Data
       parameters:
-        - name: folio
+        - name: specimen_id
           in: query
-          description: The specimen that needs to be fetched.
+          description: The specimen_id that needs to be fetched.
           required: false
           schema:
-            type: string
-            pattern: ^([0][1-9]|[1-2][0-9]|[3][0-1])([0][1-9]|[1][0-2])([0-9][0-9])([0][1-9]|[1-9][0-9])([A-Z]{4})$
-        - name: date_from
-          in: query
-          description: The date_from that needs to be fetched.
-          required: false
-          schema:
-            type: string
-            format: date-time
-        - name: date_to
-          in: query
-          description: The date_to that needs to be fetched.
-          required: false
-          schema:
-            type: string
-            format: date-time
+            type: boolean
         - name: reviewed
           in: query
           description: The indicator that shows if the tracking has been done.
           required: false
           schema:
             type: boolean
-        - name: weigth
-          in: query
-          description: The weigth that needs to be fetched.
-          required: false
-          schema:
-            type: number
-            minimum: 0
-        - name: size
-          in: query
-          description: The size that needs to be fetched.
-          required: false
-          schema:
-            type: number
-            minimum: 0
         - name: destination_id
           in: query
           description: The destination that needs to be fetched.
@@ -73,11 +44,11 @@ paths:
           schema:
             type: integer
             minimum: 0
-        
+
       operationId: getAllTracking
       responses:
         200:
-          description: Successful Operation - Get Tracking 
+          description: Successful Operation - Get Tracking
           content:
             application/json:
               schema:
@@ -88,7 +59,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Tracking'
+                      $ref: "#/components/schemas/Tracking"
         400:
           description: Bad Request
           content:
@@ -126,7 +97,7 @@ paths:
         required: true
       responses:
         201:
-          description: Successful Operation - Post Tracking 
+          description: Successful Operation - Post Tracking
           content:
             application/json:
               schema:
@@ -135,7 +106,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Tracking'
+                    $ref: "#/components/schemas/Tracking"
         400:
           description: Invalid input
           content:
@@ -195,7 +166,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Tracking'
+                    $ref: "#/components/schemas/Tracking"
         400:
           description: Bad Request
           content: {}
@@ -207,7 +178,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
     put:
       tags:
         - Tracking
@@ -225,14 +196,14 @@ paths:
       requestBody:
         description: Tracking Data to Update
         content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  data:
-                    $ref: '#/components/schemas/Tracking'
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                data:
+                  $ref: "#/components/schemas/Tracking"
         required: true
       responses:
         200:
@@ -249,7 +220,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
     delete:
       tags:
         - Tracking
@@ -316,13 +287,6 @@ paths:
       summary: Get All Destination Data
       description: Gets All Destination Data
       parameters:
-        - name: folio
-          in: query
-          description: The specimen that needs to be fetched.
-          required: false
-          schema:
-            type: string
-            pattern: ^([0][1-9]|[1-2][0-9]|[3][0-1])([0][1-9]|[1][0-2])([0-9][0-9])([0][1-9]|[1-9][0-9])([A-Z]{4})$
         - name: destination_id
           in: query
           description: The destination that needs to be fetched.
@@ -330,20 +294,6 @@ paths:
           schema:
             type: integer
             minimum: 1
-        - name: weigth
-          in: query
-          description: The weigth that needs to be fetched.
-          required: false
-          schema:
-            type: number
-            minimum: 0
-        - name: size
-          in: query
-          description: The size that needs to be fetched.
-          required: false
-          schema:
-            type: number
-            minimum: 0
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -372,7 +322,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/FinalDestination'
+                      $ref: "#/components/schemas/FinalDestination"
         400:
           description: Bad Request
           content:
@@ -419,7 +369,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/FinalDestination'
+                    $ref: "#/components/schemas/FinalDestination"
         400:
           description: Invalid input
           content:
@@ -479,7 +429,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/FinalDestination'
+                    $ref: "#/components/schemas/FinalDestination"
         400:
           description: Bad Request
           content:
@@ -532,7 +482,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FinalDestinationAttributes'
+              $ref: "#/components/schemas/FinalDestinationAttributes"
         required: true
       responses:
         200:
@@ -545,7 +495,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/FinalDestination'
+                    $ref: "#/components/schemas/FinalDestination"
         400:
           description: Bad Request
           content:
@@ -645,20 +595,6 @@ paths:
       summary: Get All Reception Data
       description: Gets All Reception Data
       parameters:
-        - name: folio
-          in: query
-          description: The specimen that needs to be fetched.
-          required: false
-          schema:
-            type: string
-            pattern: ^([0][1-9]|[1-2][0-9]|[3][0-1])([0][1-9]|[1][0-2])([0-9][0-9])([0][1-9]|[1-9][0-9])([A-Z]{4})$
-        - name: deliver_person_id
-          in: query
-          description: The deliver_person_id that needs to be fetched.
-          required: false
-          schema:
-            type: string
-            maxLength: 100
         - name: reciever_person_id
           in: query
           description: The reciever_person_id that needs to be fetched.
@@ -690,7 +626,7 @@ paths:
       operationId: getAllReception
       responses:
         200:
-          description: Successful Operation - Get Destination 
+          description: Successful Operation - Get Destination
           content:
             application/json:
               schema:
@@ -701,7 +637,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Reception'
+                      $ref: "#/components/schemas/Reception"
         400:
           description: Bad Request
           content:
@@ -748,7 +684,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Reception'
+                    $ref: "#/components/schemas/Reception"
         400:
           description: Invalid input
           content:
@@ -808,7 +744,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Reception'
+                    $ref: "#/components/schemas/Reception"
         400:
           description: Bad Request
           content:
@@ -861,7 +797,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReceptionAttributes'
+              $ref: "#/components/schemas/ReceptionAttributes"
         required: true
       responses:
         200:
@@ -874,7 +810,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Reception'
+                    $ref: "#/components/schemas/Reception"
         400:
           description: Bad Request
           content:
@@ -974,42 +910,28 @@ paths:
       summary: Get All Specimen Data
       description: Gets All Specimen Data
       parameters:
-        - name: species
+        - name: person_id
+          in: query
+          description: The person_id that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: species_id
           in: query
           description: The specimen that needs to be fetched.
           required: false
           schema:
             type: integer
             minimum: 1
-        - name: condition
-          in: query
-          description: The condition that needs to be fetched.
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-        - name: weigth
-          in: query
-          description: The weigth that needs to be fetched.
-          required: false
-          schema:
-            type: number
-            minimum: 0
-        - name: size
-          in: query
-          description: The size that needs to be fetched.
-          required: false
-          schema:
-            type: number
-            minimum: 0
-        - name: gender
+        - name: gender_id
           in: query
           description: The gender that needs to be fetched.
           required: false
           schema:
             type: integer
             minimum: 1
-        - name: age
+        - name: age_id
           in: query
           description: The age that needs to be fetched.
           required: false
@@ -1033,7 +955,7 @@ paths:
       operationId: getAllSpecimen
       responses:
         200:
-          description: Successful Operation - Get Specimen 
+          description: Successful Operation - Get Specimen
           content:
             application/json:
               schema:
@@ -1044,7 +966,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Specimen'
+                      $ref: "#/components/schemas/Specimen"
         500:
           description: Internal Server Error
           content:
@@ -1067,7 +989,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SpeciemenAttributes'
+              $ref: "#/components/schemas/SpeciemenAttributes"
         required: true
       responses:
         201:
@@ -1080,7 +1002,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Specimen'
+                    $ref: "#/components/schemas/Specimen"
         400:
           description: Invalid input
           content:
@@ -1140,7 +1062,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Specimen'
+                    $ref: "#/components/schemas/Specimen"
         404:
           description: Node not found
           content:
@@ -1182,7 +1104,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SpeciemenAttributes'
+              $ref: "#/components/schemas/SpeciemenAttributes"
         required: true
       responses:
         200:
@@ -1195,7 +1117,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Specimen'
+                    $ref: "#/components/schemas/Specimen"
         400:
           description: Bad Request
           content:
@@ -1301,7 +1223,7 @@ paths:
       operationId: getAllAges
       responses:
         200:
-          description: Successful Operation - Get Ages 
+          description: Successful Operation - Get Ages
           content:
             application/json:
               schema:
@@ -1312,7 +1234,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Age'
+                      $ref: "#/components/schemas/Age"
         400:
           description: Bad Request
           content:
@@ -1359,7 +1281,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Age'
+                    $ref: "#/components/schemas/Age"
         400:
           description: Invalid input
           content:
@@ -1409,7 +1331,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Age'
+                    $ref: "#/components/schemas/Age"
         400:
           description: Bad Request
           content:
@@ -1463,7 +1385,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AgeAttributes'
+              $ref: "#/components/schemas/AgeAttributes"
         required: true
       responses:
         200:
@@ -1476,7 +1398,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Age'
+                    $ref: "#/components/schemas/Age"
         400:
           description: Bad Request
           content:
@@ -1594,7 +1516,7 @@ paths:
       operationId: getAllGenders
       responses:
         200:
-          description: Successful Operation - Get Genders 
+          description: Successful Operation - Get Genders
           content:
             application/json:
               schema:
@@ -1605,7 +1527,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Gender'
+                      $ref: "#/components/schemas/Gender"
         400:
           description: Bad Request
           content:
@@ -1652,7 +1574,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Gender'
+                    $ref: "#/components/schemas/Gender"
         400:
           description: Invalid input
           content:
@@ -1702,7 +1624,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Gender'
+                    $ref: "#/components/schemas/Gender"
         400:
           description: Bad Request
           content:
@@ -1756,7 +1678,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenderAttributes'
+              $ref: "#/components/schemas/GenderAttributes"
         required: true
       responses:
         200:
@@ -1769,7 +1691,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Gender'
+                    $ref: "#/components/schemas/Gender"
         400:
           description: Bad Request
           content:
@@ -1887,7 +1809,7 @@ paths:
       operationId: getAllDestinations
       responses:
         200:
-          description: Successful Operation - Get Destinations 
+          description: Successful Operation - Get Destinations
           content:
             application/json:
               schema:
@@ -1943,7 +1865,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Destination'
+                    $ref: "#/components/schemas/Destination"
         400:
           description: Invalid input
           content:
@@ -1993,7 +1915,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Destination'
+                    $ref: "#/components/schemas/Destination"
         400:
           description: Bad Request
           content:
@@ -2047,7 +1969,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DestinationAttributes'
+              $ref: "#/components/schemas/DestinationAttributes"
         required: true
       responses:
         200:
@@ -2060,7 +1982,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Destination'
+                    $ref: "#/components/schemas/Destination"
         400:
           description: Bad Request
           content:
@@ -2178,7 +2100,7 @@ paths:
       operationId: getAllTypes
       responses:
         200:
-          description: Successful Operation - Get AnimalTypes 
+          description: Successful Operation - Get AnimalTypes
           content:
             application/json:
               schema:
@@ -2189,7 +2111,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/AnimalType'
+                      $ref: "#/components/schemas/AnimalType"
         400:
           description: Bad Request
           content:
@@ -2236,7 +2158,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/AnimalType'
+                    $ref: "#/components/schemas/AnimalType"
         400:
           description: Invalid input
           content:
@@ -2285,7 +2207,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/AnimalType'
+                    $ref: "#/components/schemas/AnimalType"
         400:
           description: Bad Request
           content:
@@ -2338,7 +2260,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AnimalTypeAttributes'
+              $ref: "#/components/schemas/AnimalTypeAttributes"
         required: true
       responses:
         200:
@@ -2351,7 +2273,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/AnimalType'
+                    $ref: "#/components/schemas/AnimalType"
         400:
           description: Bad Request
           content:
@@ -2468,7 +2390,7 @@ paths:
       operationId: getAllSpecies
       responses:
         200:
-          description: Successful Operation - Get Species 
+          description: Successful Operation - Get Species
           content:
             application/json:
               schema:
@@ -2479,7 +2401,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Species'
+                      $ref: "#/components/schemas/Species"
         400:
           description: Bad Request
           content:
@@ -2526,7 +2448,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Species'
+                    $ref: "#/components/schemas/Species"
         400:
           description: Invalid input
           content:
@@ -2575,7 +2497,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Species'
+                    $ref: "#/components/schemas/Species"
         400:
           description: Bad Request
           content:
@@ -2628,7 +2550,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SpeciesAttributes'
+              $ref: "#/components/schemas/SpeciesAttributes"
         required: true
       responses:
         200:
@@ -2641,7 +2563,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Species'
+                    $ref: "#/components/schemas/Species"
         400:
           description: Bad Request
           content:
@@ -2758,7 +2680,7 @@ paths:
       operationId: getAllStates
       responses:
         200:
-          description: Successful Operation - Get States 
+          description: Successful Operation - Get States
           content:
             application/json:
               schema:
@@ -2769,7 +2691,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/State'
+                      $ref: "#/components/schemas/State"
         400:
           description: Bad Request
           content:
@@ -2816,7 +2738,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/State'
+                    $ref: "#/components/schemas/State"
         400:
           description: Invalid input
           content:
@@ -2865,7 +2787,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/State'
+                    $ref: "#/components/schemas/State"
         400:
           description: Bad Request
           content:
@@ -2918,7 +2840,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StateAttributes'
+              $ref: "#/components/schemas/StateAttributes"
         required: true
       responses:
         200:
@@ -2931,7 +2853,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/State'
+                    $ref: "#/components/schemas/State"
         400:
           description: Bad Request
           content:
@@ -3055,7 +2977,7 @@ paths:
       operationId: getAllMunicipalities
       responses:
         200:
-          description: Successful Operation - Get Municipalities 
+          description: Successful Operation - Get Municipalities
           content:
             application/json:
               schema:
@@ -3066,7 +2988,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Municipality'
+                      $ref: "#/components/schemas/Municipality"
         400:
           description: Bad Request
           content:
@@ -3113,7 +3035,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Municipality'
+                    $ref: "#/components/schemas/Municipality"
         400:
           description: Invalid input
           content:
@@ -3162,7 +3084,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Municipality'
+                    $ref: "#/components/schemas/Municipality"
         400:
           description: Bad Request
           content:
@@ -3215,7 +3137,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MunicipalityAttributes'
+              $ref: "#/components/schemas/MunicipalityAttributes"
         required: true
       responses:
         200:
@@ -3228,7 +3150,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Municipality'
+                    $ref: "#/components/schemas/Municipality"
         400:
           description: Bad Request
           content:
@@ -3360,7 +3282,7 @@ paths:
       operationId: getAllLocations
       responses:
         200:
-          description: Successful Operation - Get Locations 
+          description: Successful Operation - Get Locations
           content:
             application/json:
               schema:
@@ -3371,7 +3293,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Location'
+                      $ref: "#/components/schemas/Location"
         400:
           description: Bad Request
           content:
@@ -3418,7 +3340,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Location'
+                    $ref: "#/components/schemas/Location"
         400:
           description: Invalid input
           content:
@@ -3467,7 +3389,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Location'
+                    $ref: "#/components/schemas/Location"
         400:
           description: Bad Request
           content:
@@ -3520,7 +3442,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LocationAttributes'
+              $ref: "#/components/schemas/LocationAttributes"
         required: true
       responses:
         200:
@@ -3533,7 +3455,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Location'
+                    $ref: "#/components/schemas/Location"
         400:
           description: Bad Request
           content:
@@ -3658,7 +3580,7 @@ paths:
       operationId: getAllUsers
       responses:
         200:
-          description: Successful Operation - Get Users 
+          description: Successful Operation - Get Users
           content:
             application/json:
               schema:
@@ -3669,7 +3591,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/User'
+                      $ref: "#/components/schemas/User"
         400:
           description: Bad Request
           content:
@@ -3716,7 +3638,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/User'
+                    $ref: "#/components/schemas/User"
         400:
           description: Invalid input
           content:
@@ -3765,7 +3687,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/User'
+                    $ref: "#/components/schemas/User"
         400:
           description: Bad Request
           content:
@@ -3818,7 +3740,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserAttributes'
+              $ref: "#/components/schemas/UserAttributes"
         required: true
       responses:
         200:
@@ -3831,7 +3753,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/User'
+                    $ref: "#/components/schemas/User"
         400:
           description: Bad Request
           content:
@@ -3955,7 +3877,7 @@ paths:
       operationId: getAllPersons
       responses:
         200:
-          description: Successful Operation - Get Persons 
+          description: Successful Operation - Get Persons
           content:
             application/json:
               schema:
@@ -3966,7 +3888,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Person'
+                      $ref: "#/components/schemas/Person"
         400:
           description: Bad Request
           content:
@@ -4013,7 +3935,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Person'
+                    $ref: "#/components/schemas/Person"
         400:
           description: Invalid input
           content:
@@ -4062,7 +3984,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Person'
+                    $ref: "#/components/schemas/Person"
         400:
           description: Bad Request
           content:
@@ -4115,7 +4037,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PersonAttributes'
+              $ref: "#/components/schemas/PersonAttributes"
         required: true
       responses:
         200:
@@ -4128,7 +4050,7 @@ paths:
                   message:
                     type: string
                   data:
-                    $ref: '#/components/schemas/Person'
+                    $ref: "#/components/schemas/Person"
         400:
           description: Bad Request
           content:
@@ -4264,7 +4186,7 @@ components:
           maximum: 255
     Tracking:
       allOf:
-        - $ref: '#/components/schemas/TrackingAttributes'
+        - $ref: "#/components/schemas/TrackingAttributes"
       required:
         - id
         - created_on
@@ -4306,7 +4228,7 @@ components:
           maxLength: 500
     FinalDestination:
       allOf:
-        - $ref: '#/components/schemas/FinalDestinationAttributes'
+        - $ref: "#/components/schemas/FinalDestinationAttributes"
       required:
         - id
         - created_on
@@ -4343,7 +4265,7 @@ components:
           minimum: 1
     Reception:
       allOf:
-        - $ref: '#/components/schemas/ReceptionAttributes'
+        - $ref: "#/components/schemas/ReceptionAttributes"
       required:
         - id
         - created_on
@@ -4400,7 +4322,7 @@ components:
           minimum: 0
     Specimen:
       allOf:
-        - $ref: '#/components/schemas/SpeciemenAttributes'
+        - $ref: "#/components/schemas/SpeciemenAttributes"
       required:
         - id
         - folio
@@ -4429,7 +4351,7 @@ components:
           maxLength: 50
     Age:
       allOf:
-        - $ref: '#/components/schemas/AgeAttributes'
+        - $ref: "#/components/schemas/AgeAttributes"
       required:
         - id
         - created_on
@@ -4455,7 +4377,7 @@ components:
           maxLength: 50
     AnimalType:
       allOf:
-        - $ref: '#/components/schemas/AnimalTypeAttributes'
+        - $ref: "#/components/schemas/AnimalTypeAttributes"
       required:
         - id
         - created_on
@@ -4480,7 +4402,7 @@ components:
           maxLength: 50
     Destination:
       allOf:
-        - $ref: '#/components/schemas/DestinationAttributes'
+        - $ref: "#/components/schemas/DestinationAttributes"
       required:
         - id
         - created_on
@@ -4506,7 +4428,7 @@ components:
           maxLength: 50
     Gender:
       allOf:
-        - $ref: '#/components/schemas/GenderAttributes'
+        - $ref: "#/components/schemas/GenderAttributes"
       required:
         - id
         - created_on
@@ -4532,7 +4454,7 @@ components:
           maxLength: 50
     Species:
       allOf:
-        - $ref: '#/components/schemas/SpeciesAttributes'
+        - $ref: "#/components/schemas/SpeciesAttributes"
       required:
         - id
         - created_on
@@ -4561,7 +4483,7 @@ components:
           maxLength: 50
     State:
       allOf:
-        - $ref: '#/components/schemas/StateAttributes'
+        - $ref: "#/components/schemas/StateAttributes"
       required:
         - id
         - created_on
@@ -4590,7 +4512,7 @@ components:
           minimum: 1
     Municipality:
       allOf:
-        - $ref: '#/components/schemas/MunicipalityAttributes'
+        - $ref: "#/components/schemas/MunicipalityAttributes"
       required:
         - id
         - created_on
@@ -4629,7 +4551,7 @@ components:
           minimum: 1
     Location:
       allOf:
-        - $ref: '#/components/schemas/LocationAttributes'
+        - $ref: "#/components/schemas/LocationAttributes"
       required:
         - id
         - created_on
@@ -4660,7 +4582,7 @@ components:
           maxLength: 64
     User:
       allOf:
-        - $ref: '#/components/schemas/UserAttributes'
+        - $ref: "#/components/schemas/UserAttributes"
       required:
         - id
         - created_on
@@ -4697,7 +4619,7 @@ components:
           minLength: 50
     Person:
       allOf:
-        - $ref: '#/components/schemas/PersonAttributes'
+        - $ref: "#/components/schemas/PersonAttributes"
       required:
         - id
         - created_on

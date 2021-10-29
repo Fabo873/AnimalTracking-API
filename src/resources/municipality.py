@@ -43,6 +43,10 @@ class Municipality(Resource):
         if not state:
             return returnFormat(message='State not found', status=404)
 
+        if MunicipalityModel.find_by_attributes(name=data['name'], state_id=data['state_id']):
+            if municipality.name != data['name'] or municipality.state_id != data['state_id']:
+                return returnFormat(message='Municipality already exists', status=400)
+
         municipality.name = data['name']
         municipality.state_id = data['state_id']
 

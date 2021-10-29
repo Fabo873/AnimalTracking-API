@@ -38,6 +38,9 @@ class State(Resource):
         if not state:
             return returnFormat(message='State not found', status=404)
 
+        if StateModel.find_by_name(data['name']) and state.name != data['name']:
+            return returnFormat(message='State already exists', status=400)
+
         state.name = data['name']
         state.initials = data['initials']
 

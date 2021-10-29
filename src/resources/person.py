@@ -47,6 +47,16 @@ class Person(Resource):
         if not user:
             return returnFormat(message='User not found', status=404)
 
+        if PersonModel.find_by_name(data['name'], data['first_lastname'], data['second_lastname']):
+            if person.name != data['name'] or person.first_lastname != data['first_lastname'] or person.second_lastname != data['second_lastname']:
+                return returnFormat(message='Person already exists', status=400)
+
+        if user.person.first():
+            print(user.person.first().id)
+            print(person.id)
+            if user.person.first().id != person.id:
+                return returnFormat(message='User already has a Person asigned', status=404)
+
         person.name = data['name']
         person.first_lastname = data['first_lastname']
         person.second_lastname = data['second_lastname']
@@ -87,6 +97,9 @@ class PersonList(Resource):
         user = UserModel.find_by_id(data['user_id'])
         if not user:
             return returnFormat(message='User not found', status=404)
+
+        if user.person.first():
+            return returnFormat(message='User already has a Person asigned', status=404)
 
         person = PersonModel(**data)
 

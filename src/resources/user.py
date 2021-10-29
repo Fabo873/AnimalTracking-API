@@ -39,6 +39,9 @@ class User(Resource):
         if not user:
             return returnFormat(message='User not found', status=404)
 
+        if UserModel.find_by_username(data['username']) and user.username != data['username']:
+            return returnFormat(message='User already exists', status=400)
+
         user.username = data['username']
         user.password = Encryption.encode(data['password'])
 
