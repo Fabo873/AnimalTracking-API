@@ -9,7 +9,7 @@ else
     exit 1
 fi
 
-if python ./scripts/build/version.py; then
+if python3 ./scripts/build/version.py; then
   echo 'Python3 version -> OK'
   echo ''
 else
