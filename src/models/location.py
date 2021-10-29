@@ -43,18 +43,18 @@ class LocationModel(db.Model):
 
     @classmethod
     def find_by_attributes(cls, name: str = None, municipality_id: int = None, type: str = None, limit: int = None, offset: int = None) -> List:
-        location = cls.query
+        locations = cls.query
         if name:
-            location = location.filter_by(name=name)
+            locations = locations.filter_by(name=name)
         if municipality_id:
-            location = location.filter_by(municipality_id=municipality_id)
+            locations = locations.filter_by(municipality_id=municipality_id)
         if type:
-            location = location.filter_by(type=type)
+            locations = locations.filter_by(type=type)
         if limit:
-            location = location.limit(limit)
+            locations = locations.limit(limit)
         if offset:
-            location = location.offset(offset)
-        return location.all()
+            locations = locations.offset(offset)
+        return locations.all()
 
     @classmethod
     def find_by_id(cls, _id: int) -> LocationModel:

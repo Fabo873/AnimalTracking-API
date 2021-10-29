@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 
 from models.municipality import MunicipalityModel
+from models.state import StateModel
 from helpers.format import returnFormat
 
 
@@ -38,6 +39,10 @@ class Municipality(Resource):
         if not municipality:
             return returnFormat(message='Municipality not found', status=404)
 
+        state = StateModel.find_by_id(data['state_id'])
+        if not state:
+            return returnFormat(message='State not found', status=404)
+
         municipality.name = data['name']
         municipality.state_id = data['state_id']
 
@@ -68,6 +73,10 @@ class MunicipalityList(Resource):
 
         if MunicipalityModel.find_by_attributes(name=data['name'], state_id=data['state_id']):
             return returnFormat(message='Municipality already exists', status=400)
+
+        state = StateModel.find_by_id(data['state_id'])
+        if not state:
+            return returnFormat(message='State not found', status=404)
 
         municipality = MunicipalityModel(**data)
         municipality.save_to_db()

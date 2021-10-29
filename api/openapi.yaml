@@ -3328,13 +3328,6 @@ paths:
       summary: Get All Locations
       description: Gets All Locations
       parameters:
-        - name: state_id
-          in: query
-          description: The state were the location belongs
-          required: false
-          schema:
-            type: integer
-            minimum: 1
         - name: municipality_id
           in: query
           description: The municipality were the location belongs.
@@ -3938,13 +3931,6 @@ paths:
       summary: Get All Persons
       description: Gets All Persons
       parameters:
-        - name: user_id
-          in: query
-          description: The user of the person to be fetched.
-          required: false
-          schema:
-            type: integer
-            minimum: 1
         - name: name
           in: query
           description: The name of the person to be fetched.
@@ -4236,7 +4222,8 @@ paths:
                   data:
                     type: object
 servers:
-  - url: /
+  - url: http://127.0.0.1:5000
+    description: local server (uses local DB)
 security:
   - ApiKeyAuth: []
 components:

@@ -4,3 +4,4 @@ Flask-jwt == 0.3.2
 Flask-SQLAlchemy == 2.5.1
 PyMySQL == 1.0.2
 autopep8 == 1.6.0
+cryptography == 35.0.0

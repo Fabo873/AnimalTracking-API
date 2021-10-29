@@ -9,6 +9,8 @@ from helpers.db import db
 from resources.state import State, StateList
 from resources.municipality import Municipality, MunicipalityList
 from resources.location import Location, LocationList
+from resources.user import User, UserList
+from resources.person import Person, PersonList
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://eduardo:eduardo@127.0.0.1:3306/REPORTS'
@@ -24,6 +26,12 @@ api.add_resource(Municipality, '/municipality/<int:id>')
 
 api.add_resource(LocationList, '/location')
 api.add_resource(Location, '/location/<int:id>')
+
+api.add_resource(UserList, '/user')
+api.add_resource(User, '/user/<int:id>')
+
+api.add_resource(PersonList, '/person')
+api.add_resource(Person, '/person/<int:id>')
 
 if __name__ == '__main__':
     db.init_app(app)

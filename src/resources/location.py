@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 
 from models.location import LocationModel
+from models.municipality import MunicipalityModel
 from helpers.format import returnFormat
 
 
@@ -46,6 +47,10 @@ class Location(Resource):
         if not location:
             return returnFormat(message='Location not found', status=404)
 
+        municipality = MunicipalityModel.find_by_id(data['municipality_id'])
+        if not municipality:
+            return returnFormat(message='Municipality not found', status=404)
+
         location.name = data['name']
         location.municipality_id = data['municipality_id']
         location.type = data['type']
@@ -90,6 +95,10 @@ class LocationList(Resource):
 
         if LocationModel.find_by_attributes(name=data['name'], municipality_id=data['municipality_id']):
             return returnFormat(message='Location already exists', status=400)
+
+        municipality = MunicipalityModel.find_by_id(data['municipality_id'])
+        if not municipality:
+            return returnFormat(message='Municipality not found', status=404)
 
         location = LocationModel(**data)
         location.save_to_db()

@@ -37,12 +37,12 @@ class StateModel(db.Model):
 
     @classmethod
     def find_by_attributes(cls, limit: int = None, offset: int = None) -> List:
-        municipalities = cls.query
+        states = cls.query
         if limit:
-            municipalities = municipalities.limit(limit)
+            states = states.limit(limit)
         if offset:
-            municipalities = municipalities.offset(offset)
-        return municipalities.all()
+            states = states.offset(offset)
+        return states.all()
 
     @classmethod
     def find_by_id(cls, _id: int) -> StateModel:
