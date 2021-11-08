@@ -19,3 +19,4 @@ services:
       - "./sql/mycustom.cnf:/etc/mysql/conf.d/custom.cnf"
       - "./sql/build_tables.sql:/docker-entrypoint-initdb.d/1.sql"
       - "./sql/insert_locations.sql:/docker-entrypoint-initdb.d/2.sql"
+      - "./sql/insert_dummy_data.sql:/docker-entrypoint-initdb.d/3.sql"

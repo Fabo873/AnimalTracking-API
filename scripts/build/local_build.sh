@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -x "$(command -v python3)" ]; then
+if [ -x "$(command -v python)" ]; then
     echo "Python3 -> OK"
     echo ''
 else
@@ -9,7 +9,7 @@ else
     exit 1
 fi
 
-if python3 ./scripts/build/version.py; then
+if python ./scripts/build/version.py; then
   echo 'Python3 version -> OK'
   echo ''
 else
