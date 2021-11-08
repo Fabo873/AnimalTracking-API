@@ -1,8 +1,8 @@
+import os
 from cryptography.fernet import Fernet
 
-
 class Encryption():
-    key = b'GOO_jI4kitAVRjShp4sKhVCGwiu9fSRIhJv44PwnXSc='
+    key = os.environ['ENCRYPTION_KEY'].encode()
     f = Fernet(key)
 
     @classmethod

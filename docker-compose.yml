@@ -6,7 +6,8 @@ services:
   database:
     build:
       context: ./
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./docker/DB.Dockerfile
+    container_name: db
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: root
@@ -14,9 +15,27 @@ services:
       MARIADB_USER: eduardo
       MARIADB_PASSWORD: eduardo
     ports:
-      - "127.0.0.1:3306:3306"
+      - "3306:3306"
     volumes:
       - "./sql/mycustom.cnf:/etc/mysql/conf.d/custom.cnf"
       - "./sql/build_tables.sql:/docker-entrypoint-initdb.d/1.sql"
       - "./sql/insert_locations.sql:/docker-entrypoint-initdb.d/2.sql"
       - "./sql/insert_dummy_data.sql:/docker-entrypoint-initdb.d/3.sql"
+
+  api:
+    build:
+      context: ./
+      dockerfile: ./docker/API.Dockerfile
+    container_name: flask-api
+    restart: always
+    environment:
+      DB_USER: eduardo
+      DB_PASSWORD: eduardo
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: REPORTS
+      API_HOST: 0.0.0.0
+      API_PORT: 5000
+      ENCRYPTION_KEY: GOO_jI4kitAVRjShp4sKhVCGwiu9fSRIhJv44PwnXSc=
+    ports:
+      - "5000:5000"

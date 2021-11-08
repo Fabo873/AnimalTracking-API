@@ -30,5 +30,3 @@ def getInitials(name:str) -> str:
         initials += n[0].upper()
     return initials
 
-print(folioFormat(datetime.date.today(),1,'Eduardo','Mendez','Santa Ana'))
-print(datetime.date.today())

@@ -1,4 +1,4 @@
-# import os
+import os
 
 # from datetime import timedelta
 from flask import Flask
@@ -21,8 +21,14 @@ from resources.reception import Reception, ReceptionList
 from resources.finalDestination import FinalDestination, FinalDestinationList
 from resources.tracking import Tracking, TrackingList
 
+db_uri = 'mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'.format(db_user=os.environ['DB_USER'],
+                                                                                        db_password=os.environ['DB_PASSWORD'],
+                                                                                        db_host=os.environ['DB_HOST'],
+                                                                                        db_port=os.environ['DB_PORT'],
+                                                                                        db_name=os.environ['DB_NAME'])
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://eduardo:eduardo@127.0.0.1:3306/REPORTS'
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 api = Api(app)
@@ -71,4 +77,4 @@ api.add_resource(Tracking, '/tracking/<int:id>')
 
 if __name__ == '__main__':
     db.init_app(app)
-    app.run(port=5000, debug=True)
+    app.run(host=os.environ['API_HOST'], port=os.environ['API_PORT'], debug=True)
