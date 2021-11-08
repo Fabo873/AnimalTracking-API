@@ -64,6 +64,8 @@ class MunicipalityList(Resource):
                              help='state_id is an required param', location='json')
 
     get_parser = reqparse.RequestParser()
+    get_parser.add_argument('name', type=str, required=False,
+                            help='Name must be a valid string', location='args')
     get_parser.add_argument('limit', type=int, required=False,
                             help='Limit of municipalities to retrice', location='args')
     get_parser.add_argument('offset', type=int, required=False,

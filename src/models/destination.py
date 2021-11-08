@@ -31,8 +31,11 @@ class DestinationModel(db.Model):
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def find_by_attributes(cls, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, name: str = None, limit: int = None, offset: int = None) -> List:
         destination = cls.query
+        if name:
+            search = "%{}%".format(name)
+            destination = destination.filter(cls.name.like(search))
         if limit:
             destination = destination.limit(limit)
         if offset:

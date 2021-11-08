@@ -1206,6 +1206,12 @@ paths:
       summary: Get All Ages
       description: Gets All Ages
       parameters:
+        - name: name
+          in: query
+          description: The name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -1499,6 +1505,12 @@ paths:
       summary: Get All Genders
       description: Gets All Genders
       parameters:
+        - name: name
+          in: query
+          description: The name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -1792,6 +1804,12 @@ paths:
       summary: Get All Destinations
       description: Gets All Destinations
       parameters:
+        - name: name
+          in: query
+          description: The name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -2083,6 +2101,12 @@ paths:
       summary: Get All AnimalTypes
       description: Gets All AnimalTypes
       parameters:
+        - name: name
+          in: query
+          description: The name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -2373,6 +2397,12 @@ paths:
       summary: Get All Species
       description: Gets All Species
       parameters:
+        - name: name
+          in: query
+          description: The name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -2663,6 +2693,12 @@ paths:
       summary: Get All States
       description: Gets All States
       parameters:
+        - name: name
+          in: query
+          description: The name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -2953,6 +2989,12 @@ paths:
       summary: Get All Municipalities
       description: Gets All Municipalities
       parameters:
+        - name: name
+          in: query
+          description: The name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
         - name: state_id
           in: query
           description: The state were the municipality belongs.
@@ -3250,6 +3292,12 @@ paths:
       summary: Get All Locations
       description: Gets All Locations
       parameters:
+        - name: name
+          in: query
+          description: The name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
         - name: municipality_id
           in: query
           description: The municipality were the location belongs.

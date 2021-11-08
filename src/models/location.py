@@ -44,7 +44,8 @@ class LocationModel(db.Model):
     def find_by_attributes(cls, name: str = None, municipality_id: int = None, type: str = None, limit: int = None, offset: int = None) -> List:
         locations = cls.query
         if name:
-            locations = locations.filter_by(name=name)
+            search = "%{}%".format(name)
+            locations = locations.filter(cls.name.like(search))
         if municipality_id:
             locations = locations.filter_by(municipality_id=municipality_id)
         if type:

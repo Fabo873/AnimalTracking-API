@@ -31,8 +31,11 @@ class SpeciesModel(db.Model):
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def find_by_attributes(cls, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, name: str = None, limit: int = None, offset: int = None) -> List:
         species = cls.query
+        if name:
+            search = "%{}%".format(name)
+            species = species.filter(cls.name.like(search))
         if limit:
             species = species.limit(limit)
         if offset:

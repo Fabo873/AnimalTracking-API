@@ -31,8 +31,11 @@ class AgeModel(db.Model):
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def find_by_attributes(cls, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, name: str = None, limit: int = None, offset: int = None) -> List:
         age = cls.query
+        if name:
+            search = "%{}%".format(name)
+            age = age.filter(cls.name.like(search))
         if limit:
             age = age.limit(limit)
         if offset:

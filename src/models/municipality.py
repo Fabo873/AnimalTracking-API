@@ -36,7 +36,8 @@ class MunicipalityModel(db.Model):
     def find_by_attributes(cls, name: str = None, state_id: int = None, limit: int = None, offset: int = None) -> List:
         municipalities = cls.query
         if name:
-            municipalities = municipalities.filter_by(name=name)
+            search = "%{}%".format(name)
+            municipalities = municipalities.filter(cls.name.like(search))
         if state_id:
             municipalities = municipalities.filter_by(state_id=state_id)
         if limit:
