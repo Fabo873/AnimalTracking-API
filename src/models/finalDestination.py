@@ -52,11 +52,13 @@ class FinalDestinationModel(db.Model):
         return cls.query.filter_by(specimen_id=specimen_id).first()
 
     @classmethod
-    def find_by_attributes(cls, limit: int = None, offset: int = None, destination_id: int = None) -> List:
+    def find_by_attributes(cls, limit: int = None, offset: int = None, destination_id: int = None, specimen_id: int = None) -> List:
         finalDestination = cls.query
         if destination_id:
             finalDestination = finalDestination.filter_by(
                 destination_id=destination_id)
+        if specimen_id:
+            finalDestination = finalDestination.filter_by(specimen_id=specimen_id)
         if limit:
             finalDestination = finalDestination.limit(limit)
         if offset:

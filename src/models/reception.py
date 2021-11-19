@@ -47,13 +47,15 @@ class ReceptionModel(db.Model):
         return cls.query.filter_by(specimen_id=specimen_id).first()
 
     @classmethod
-    def find_by_attributes(cls, limit: int = None, offset: int = None, reciever_person_id: int = None, location_id: int = None) -> List:
+    def find_by_attributes(cls, limit: int = None, offset: int = None, reciever_person_id: int = None, location_id: int = None, specimen_id: int = None) -> List:
         reception = cls.query
         if reciever_person_id:
             reception = reception.filter_by(
                 reciever_person_id=reciever_person_id)
         if location_id:
             reception = reception.filter_by(location_id=location_id)
+        if specimen_id:
+            reception = reception.filter_by(specimen_id=specimen_id)
         if limit:
             reception = reception.limit(limit)
         if offset:
