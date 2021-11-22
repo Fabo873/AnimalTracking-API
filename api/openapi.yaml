@@ -2397,12 +2397,24 @@ paths:
       summary: Get All Species
       description: Gets All Species
       parameters:
-        - name: name
+        - name: common_name
           in: query
-          description: The name of the entries to be fetched.
+          description: The common name of the entries to be fetched.
           required: false
           schema:
             type: string
+        - name: scientific_name
+          in: query
+          description: The scientific name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
+        - name: animal_type_id
+          in: query
+          description: The animal type id of the entries to be fetched.
+          required: false
+          schema:
+            type: integer
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -4495,11 +4507,19 @@ components:
     SpeciesAttributes:
       type: object
       required:
-        - name
+        - common_name
+        - scientific_name
+        - animal_type_id
       properties:
-        name:
+        common_name:
           type: string
-          maxLength: 50
+          maxLength: 100
+        scientific_name:
+          type: string
+          maxLength: 100
+        animal_type_id:
+          type: integer
+          minimum: 1
     Species:
       allOf:
         - $ref: "#/components/schemas/SpeciesAttributes"
