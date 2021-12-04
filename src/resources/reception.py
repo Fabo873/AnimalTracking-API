@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from models.location import LocationModel
+from models.neighborhood import NeighborhoodModel
 
 from models.reception import ReceptionModel
 from models.person import PersonModel
@@ -16,8 +16,8 @@ class Reception(Resource):
                             help='reciever_person_id is an required param', location='json')
     put_parser.add_argument('specimen_id', type=int, required=True,
                             help='specimen_id is an required param', location='json')
-    put_parser.add_argument('location_id', type=int, required=False,
-                            help='location_id is an required param', location='json')
+    put_parser.add_argument('neighborhood_id', type=int, required=False,
+                            help='neighborhood_id is an required param', location='json')
 
     def get(self, id):
 
@@ -52,9 +52,9 @@ class Reception(Resource):
         if not specimen:
             return returnFormat(message='specimen not found', status=404)
 
-        location = LocationModel.find_by_id(data['location_id'])
-        if not location:
-            return returnFormat(message='location not found', status=404)
+        neighborhood = NeighborhoodModel.find_by_id(data['neighborhood_id'])
+        if not neighborhood:
+            return returnFormat(message='neighborhood not found', status=404)
 
         person = PersonModel.find_by_id(data['reciever_person_id'])
         if not person:
@@ -62,7 +62,7 @@ class Reception(Resource):
 
         reception.deliver_person = data['deliver_person']
         reception.specimen_id = data['specimen_id']
-        reception.location_id = data['location_id']
+        reception.neighborhood_id = data['neighborhood_id']
         reception.reciever_person_id = data['reciever_person_id']
 
         reception.save_to_db()
@@ -79,8 +79,8 @@ class ReceptionList(Resource):
                              help='reciever_person_id is an required param', location='json')
     post_parser.add_argument('specimen_id', type=int, required=True,
                              help='specimen_id is an required param', location='json')
-    post_parser.add_argument('location_id', type=int, required=False,
-                             help='location_id is an required param', location='json')
+    post_parser.add_argument('neighborhood_id', type=int, required=False,
+                             help='neighborhood_id is an required param', location='json')
 
     get_parser = reqparse.RequestParser()
     get_parser.add_argument('limit', type=int, required=False,
@@ -91,8 +91,8 @@ class ReceptionList(Resource):
                             help='reciever_person_id is an required param', location='args')
     get_parser.add_argument('specimen_id', type=int, required=False,
                             help='specimen_id is an required param', location='args')
-    get_parser.add_argument('location_id', type=int, required=False,
-                            help='location_id is an required param', location='args')
+    get_parser.add_argument('neighborhood_id', type=int, required=False,
+                            help='neighborhood_id is an required param', location='args')
 
     def post(self):
 
@@ -106,9 +106,9 @@ class ReceptionList(Resource):
         if not specimen:
             return returnFormat(message='specimen not found', status=404)
 
-        location = LocationModel.find_by_id(data['location_id'])
-        if not location:
-            return returnFormat(message='location not found', status=404)
+        neighborhood = NeighborhoodModel.find_by_id(data['neighborhood_id'])
+        if not neighborhood:
+            return returnFormat(message='neighborhood not found', status=404)
 
         person = PersonModel.find_by_id(data['reciever_person_id'])
         if not person:

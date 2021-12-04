@@ -18,7 +18,7 @@ class LocationModel(db.Model):
     updated_at = db.Column(db.DateTime())
 
     municipality = db.relationship(
-        'MunicipalityModel', back_populates="locations")
+        'MunicipalityModel')
 
     def __init__(self, name: str, municipality_id: int, _id: int = None, type: str = None, lat: float = None, lon: float = None, altitude: int = None) -> None:
         self.id = _id

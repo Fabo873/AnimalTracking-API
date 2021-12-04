@@ -20,6 +20,7 @@ from resources.specimen import Specimen, SpecimenList
 from resources.reception import Reception, ReceptionList
 from resources.finalDestination import FinalDestination, FinalDestinationList
 from resources.tracking import Tracking, TrackingList
+from resources.neighborhood import Neighborhood, NeighborhoodList
 
 db_uri = 'mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'.format(db_user=os.environ['DB_USER'],
                                                                                         db_password=os.environ['DB_PASSWORD'],
@@ -74,6 +75,9 @@ api.add_resource(FinalDestination, '/final/<int:id>')
 
 api.add_resource(TrackingList, '/tracking')
 api.add_resource(Tracking, '/tracking/<int:id>')
+
+api.add_resource(NeighborhoodList, '/neighborhood')
+api.add_resource(Neighborhood, '/neighborhood/<int:id>')
 
 if __name__ == '__main__':
     db.init_app(app)

@@ -602,9 +602,9 @@ paths:
           schema:
             type: integer
             minimum: 1
-        - name: location_id
+        - name: neighborhood_id
           in: query
-          description: The location_id that needs to be fetched.
+          description: The neighborhood_id that needs to be fetched.
           required: false
           schema:
             type: integer
@@ -3608,6 +3608,309 @@ paths:
                     type: string
                   data:
                     type: object
+  /neighborhood:
+    get:
+      tags:
+        - Neighborhood
+      summary: Get All Neighborhoods
+      description: Gets All Neighborhoods
+      parameters:
+        - name: name
+          in: query
+          description: The name of the entries to be fetched.
+          required: false
+          schema:
+            type: string
+        - name: municipality_id
+          in: query
+          description: The municipality were the neighborhood belongs.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+      operationId: getAllNeighborhoods
+      responses:
+        200:
+          description: Successful Operation - Get Neighborhoods
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Neighborhood"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+    post:
+      tags:
+        - Neighborhood
+      summary: Create Neighborhood
+      description: Creates a new Neighborhood
+      operationId: createNeighborhood
+      requestBody:
+        description: Neighborhood to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NeighborhoodAttributes"
+        required: true
+      responses:
+        201:
+          description: Successful operation- Component created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Neighborhood"
+        400:
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+  /neighborhood/{id}:
+    get:
+      tags:
+        - Neighborhood
+      summary: Get Neighborhood
+      description: Get Neighborhood by ID
+      operationId: getNeighborhoodById
+      parameters:
+        - name: id
+          in: path
+          description: The Neighborhood id that needs to be fetched.
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: Successful Operation - Get Neighborhood
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Neighborhood"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        404:
+          description: Neighborhood not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+    put:
+      tags:
+        - Neighborhood
+      summary: Update Neighborhood
+      description: Updates the Neighborhood with the specified id.
+      operationId: updateNeighborhood
+      parameters:
+        - name: id
+          in: path
+          description: The Neighborhood id that needs to be updated.
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        description: Neighborhood to Update
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NeighborhoodAttributes"
+        required: true
+      responses:
+        200:
+          description: Successful Operation - Neighborhood Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    $ref: "#/components/schemas/Neighborhood"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        404:
+          description: Neighborhood not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+    delete:
+      tags:
+        - Neighborhood
+      summary: Delete Neighborhood
+      description: Deletes the Neighborhood with the specified ID
+      operationId: deleteNeighborhood
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the Neighborhood that needs to be deleted.
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        200:
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        404:
+          description: Neighborhood not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /user:
     get:
       tags:
@@ -4309,7 +4612,7 @@ components:
         - specimen_id
         - deliver_person
         - reciever_person_id
-        - location_id
+        - neighborhood_id
       properties:
         specimen_id:
           type: integer
@@ -4320,7 +4623,7 @@ components:
         reciever_person_id:
           type: integer
           minimum: 1
-        location_id:
+        neighborhood_id:
           type: integer
           minimum: 1
     Reception:
@@ -4620,6 +4923,35 @@ components:
     Location:
       allOf:
         - $ref: "#/components/schemas/LocationAttributes"
+      required:
+        - id
+        - created_on
+        - updated_at
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        created_on:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    NeighborhoodAttributes:
+      type: object
+      required:
+        - name
+        - municipality_id
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        municipality_id:
+          type: integer
+          minimum: 1
+    Neighborhood:
+      allOf:
+        - $ref: "#/components/schemas/NeighborhoodAttributes"
       required:
         - id
         - created_on

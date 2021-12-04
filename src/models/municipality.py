@@ -13,8 +13,8 @@ class MunicipalityModel(db.Model):
     updated_at = db.Column(db.DateTime())
 
     state = db.relationship('StateModel', back_populates="municipalities")
-    locations = db.relationship(
-        'LocationModel', lazy='dynamic', back_populates="municipality")
+    neighborhoods = db.relationship(
+        'NeighborhoodModel', lazy='dynamic', back_populates="municipality")
 
     def __init__(self, name: str, state_id: int, _id: int = None) -> None:
         self.id = _id
@@ -30,7 +30,7 @@ class MunicipalityModel(db.Model):
         db.session.commit()
 
     def json(self) -> Dict:
-        return {'id': self.id, 'name': self.name, 'state_id': self.state_id}
+        return {'id': self.id, 'name': self.name, 'state': self.state.json()}
 
     @classmethod
     def find_by_attributes(cls, name: str = None, state_id: int = None, limit: int = None, offset: int = None) -> List:
