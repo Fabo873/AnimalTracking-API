@@ -67,7 +67,7 @@ class SpecimenModel(db.Model):
         return cls.query.filter_by(folio=folio).first()
 
     @classmethod
-    def find_by_attributes(cls, limit: int = None, offset: int = None, person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, destination_id: int = None) -> List:
+    def find_by_attributes(cls, limit: int = None, offset: int = None, person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, destination_id: int = None, folio: str = None) -> List:
         specimen = cls.query
         if person_id:
             specimen = specimen.filter_by(person_id=person_id)
@@ -81,6 +81,8 @@ class SpecimenModel(db.Model):
             specimen = specimen.filter_by(age_id=age_id)
         if destination_id:
             specimen = specimen.filter_by(destination_id=destination_id)
+        if folio:
+            specimen = specimen.filter_by(folio=folio)
         if limit:
             specimen = specimen.limit(limit)
         if offset:

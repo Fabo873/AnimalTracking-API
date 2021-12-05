@@ -938,6 +938,12 @@ paths:
           schema:
             type: integer
             minimum: 1
+        - name: folio
+          in: query
+          description: The folio that needs to be fetched.
+          required: false
+          schema:
+            type: string
         - name: limit
           in: query
           description: The limit number of entries to be fetched.

@@ -126,6 +126,8 @@ class SpecimenList(Resource):
                             help='species_id is an required param', location='args')
     get_parser.add_argument('age_id', type=int, required=False,
                             help='age_id is an required param', location='args')
+    get_parser.add_argument('folio', type=str, required=False,
+                            help='folio is an required param', location='args')
     get_parser.add_argument('gender_id', type=int, required=False,
                             help='gender_id is an required param', location='args')
     get_parser.add_argument('destination_id', type=int, required=False,
