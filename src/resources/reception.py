@@ -91,6 +91,18 @@ class ReceptionList(Resource):
                             help='reciever_person_id is an required param', location='args')
     get_parser.add_argument('specimen_id', type=int, required=False,
                             help='specimen_id is an required param', location='args')
+    get_parser.add_argument('person_id', type=int, required=False,
+                            help='person_id is an required param', location='args')
+    get_parser.add_argument('animalType_id', type=int, required=False,
+                            help='animalType_id is an required param', location='args')
+    get_parser.add_argument('species_id', type=int, required=False,
+                            help='species_id is an required param', location='args')
+    get_parser.add_argument('age_id', type=int, required=False,
+                            help='age_id is an required param', location='args')
+    get_parser.add_argument('folio', type=str, required=False,
+                            help='folio is an required param', location='args')
+    get_parser.add_argument('gender_id', type=int, required=False,
+                            help='gender_id is an required param', location='args')
     get_parser.add_argument('neighborhood_id', type=int, required=False,
                             help='neighborhood_id is an required param', location='args')
 

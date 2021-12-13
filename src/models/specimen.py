@@ -27,6 +27,7 @@ class SpecimenModel(db.Model):
     gender = db.relationship('GenderModel')
     age = db.relationship('AgeModel')
     destination = db.relationship('DestinationModel')
+    reception = db.relationship('ReceptionModel', back_populates="specimen")
 
     def __init__(self, folio: str, person_id: int, animalType_id: int, species_id: int, gender_id: int, age_id: int, destination_id: int, condition: str = None, weigth: float = None, size: float = None, _id: int = None) -> None:
         self.id = _id
@@ -67,8 +68,12 @@ class SpecimenModel(db.Model):
         return cls.query.filter_by(folio=folio).first()
 
     @classmethod
-    def find_by_attributes(cls, limit: int = None, offset: int = None, person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, destination_id: int = None, folio: str = None) -> List:
+    def find_by_attributes(cls, limit: int = None, offset: int = None, person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, destination_id: int = None, folio: str = None,
+        neighborhood_id: int = None) -> List:
         specimen = cls.query
+        if neighborhood_id:
+            specimen = specimen.join(cls.reception)
+            specimen = specimen.filter_by(neighborhood_id=neighborhood_id)
         if person_id:
             specimen = specimen.filter_by(person_id=person_id)
         if animalType_id:

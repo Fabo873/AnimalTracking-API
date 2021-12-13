@@ -132,6 +132,8 @@ class SpecimenList(Resource):
                             help='gender_id is an required param', location='args')
     get_parser.add_argument('destination_id', type=int, required=False,
                             help='destination_id is an required param', location='args')
+    get_parser.add_argument('neighborhood_id', type=int, required=False,
+                            help='neighborhood_id is an required param', location='args')
 
     def post(self):
 

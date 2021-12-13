@@ -47,8 +47,12 @@ class ReceptionModel(db.Model):
         return cls.query.filter_by(specimen_id=specimen_id).first()
 
     @classmethod
-    def find_by_attributes(cls, limit: int = None, offset: int = None, reciever_person_id: int = None, neighborhood_id: int = None, specimen_id: int = None) -> List:
+    def find_by_attributes(cls, limit: int = None, offset: int = None, reciever_person_id: int = None, neighborhood_id: int = None, specimen_id: int = None,
+        person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, folio: str = None) -> List:
+
         reception = cls.query
+        if person_id or animalType_id or species_id or gender_id or age_id or folio:
+            reception = reception.join(cls.specimen)
         if reciever_person_id:
             reception = reception.filter_by(
                 reciever_person_id=reciever_person_id)
@@ -56,6 +60,18 @@ class ReceptionModel(db.Model):
             reception = reception.filter_by(neighborhood_id=neighborhood_id)
         if specimen_id:
             reception = reception.filter_by(specimen_id=specimen_id)
+        if person_id:
+            reception = reception.filter_by(person_id=person_id)
+        if animalType_id:
+            reception = reception.filter_by(animalType_id=animalType_id)
+        if species_id:
+            reception = reception.filter_by(species_id=species_id)
+        if gender_id:
+            reception = reception.filter_by(gender_id=gender_id)
+        if age_id:
+            reception = reception.filter_by(age_id=age_id)
+        if folio:
+            reception = reception.filter_by(folio=folio)
         if limit:
             reception = reception.limit(limit)
         if offset:
