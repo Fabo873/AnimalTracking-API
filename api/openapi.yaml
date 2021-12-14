@@ -71,6 +71,18 @@ paths:
           required: false
           schema:
             type: string
+        - name: date_from
+          in: query
+          description: Date since the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          description: Date until the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -382,6 +394,18 @@ paths:
           required: false
           schema:
             type: string
+        - name: date_from
+          in: query
+          description: Date since the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          description: Date until the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -737,6 +761,18 @@ paths:
           schema:
             type: integer
             minimum: 1
+        - name: date_from
+          in: query
+          description: Date since the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          description: Date until the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
         - name: limit
           in: query
           description: The limit number of entries to be fetched.
@@ -1093,6 +1129,18 @@ paths:
           required: false
           schema:
             type: string
+        - name: date_from
+          in: query
+          description: Date since the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          description: Date until the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
         - name: limit
           in: query
           description: The limit number of entries to be fetched.

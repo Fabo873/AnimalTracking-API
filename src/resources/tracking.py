@@ -114,6 +114,10 @@ class TrackingList(Resource):
                             help='specimen_id is an required param', location='args')
     get_parser.add_argument('reviewed', type=bool, required=False,
                             help='reviewed is a bool param', location='args')
+    get_parser.add_argument('date_from', type=lambda x: datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
+    get_parser.add_argument('date_to', type=lambda x: datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
 
     def post(self):
 

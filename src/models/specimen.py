@@ -1,4 +1,5 @@
 from __future__ import annotations
+from datetime import datetime
 
 from helpers.db import db
 from typing import List, Dict
@@ -69,7 +70,7 @@ class SpecimenModel(db.Model):
 
     @classmethod
     def find_by_attributes(cls, limit: int = None, offset: int = None, person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, destination_id: int = None, folio: str = None,
-        neighborhood_id: int = None) -> List:
+        neighborhood_id: int = None, date_from: datetime = None, date_to: datetime = None) -> List:
         specimen = cls.query
         if neighborhood_id:
             specimen = specimen.join(cls.reception)
@@ -88,6 +89,10 @@ class SpecimenModel(db.Model):
             specimen = specimen.filter_by(destination_id=destination_id)
         if folio:
             specimen = specimen.filter_by(folio=folio)
+        if date_from:
+            specimen = specimen.filter(cls.created_at >= date_from)
+        if date_to:
+            specimen = specimen.filter(cls.created_at <= date_to)
         if limit:
             specimen = specimen.limit(limit)
         if offset:

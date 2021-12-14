@@ -1,4 +1,5 @@
 from __future__ import annotations
+from datetime import datetime
 
 from helpers.db import db
 from typing import List, Dict
@@ -55,7 +56,8 @@ class FinalDestinationModel(db.Model):
 
     @classmethod
     def find_by_attributes(cls, limit: int = None, offset: int = None, destination_id: int = None, specimen_id: int = None,
-        person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, folio: str = None) -> List:
+        person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, folio: str = None,
+        date_from: datetime = None, date_to: datetime = None) -> List:
 
         finalDestination = cls.query
         if person_id or animalType_id or species_id or gender_id or age_id or folio:
@@ -77,6 +79,10 @@ class FinalDestinationModel(db.Model):
             finalDestination = finalDestination.filter_by(age_id=age_id)
         if folio:
             finalDestination = finalDestination.filter_by(folio=folio)
+        if date_from:
+            finalDestination = finalDestination.filter(cls.created_at >= date_from)
+        if date_to:
+            finalDestination = finalDestination.filter(cls.created_at <= date_to)
         if limit:
             finalDestination = finalDestination.limit(limit)
         if offset:

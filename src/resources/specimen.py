@@ -134,6 +134,10 @@ class SpecimenList(Resource):
                             help='destination_id is an required param', location='args')
     get_parser.add_argument('neighborhood_id', type=int, required=False,
                             help='neighborhood_id is an required param', location='args')
+    get_parser.add_argument('date_from', type=lambda x: datetime.datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
+    get_parser.add_argument('date_to', type=lambda x: datetime.datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
 
     def post(self):
 

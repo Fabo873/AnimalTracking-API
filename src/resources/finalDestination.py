@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask_restful import Resource, reqparse
 from models.destination import DestinationModel
 
@@ -109,6 +110,10 @@ class FinalDestinationList(Resource):
                             help='folio is an required param', location='args')
     get_parser.add_argument('gender_id', type=int, required=False,
                             help='gender_id is an required param', location='args')
+    get_parser.add_argument('date_from', type=lambda x: datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
+    get_parser.add_argument('date_to', type=lambda x: datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
     
     def post(self):
 

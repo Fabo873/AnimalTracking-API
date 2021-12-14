@@ -1,4 +1,5 @@
 from __future__ import annotations
+from datetime import datetime
 
 from helpers.db import db
 from typing import List, Dict
@@ -48,7 +49,8 @@ class ReceptionModel(db.Model):
 
     @classmethod
     def find_by_attributes(cls, limit: int = None, offset: int = None, reciever_person_id: int = None, neighborhood_id: int = None, specimen_id: int = None,
-        person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, folio: str = None) -> List:
+        person_id: int = None, animalType_id: int = None, species_id: int = None, gender_id: int = None, age_id: int = None, folio: str = None,
+        date_from: datetime = None, date_to: datetime = None) -> List:
 
         reception = cls.query
         if person_id or animalType_id or species_id or gender_id or age_id or folio:
@@ -72,6 +74,10 @@ class ReceptionModel(db.Model):
             reception = reception.filter_by(age_id=age_id)
         if folio:
             reception = reception.filter_by(folio=folio)
+        if date_from:
+            reception = reception.filter(cls.created_at >= date_from)
+        if date_to:
+            reception = reception.filter(cls.created_at <= date_to)
         if limit:
             reception = reception.limit(limit)
         if offset:
