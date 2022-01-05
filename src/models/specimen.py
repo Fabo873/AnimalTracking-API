@@ -53,6 +53,7 @@ class SpecimenModel(db.Model):
 
     def json(self) -> Dict:
         return {'id': self.id,
+                'date': str(self.created_at),
                 'folio': self.folio,
                 'person': self.person.json(),
                 'animalType': self.animalType.json(),

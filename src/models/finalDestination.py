@@ -42,6 +42,7 @@ class FinalDestinationModel(db.Model):
 
     def json(self) -> Dict:
         return {'id': self.id,
+                'date': str(self.created_at),
                 'specimen': self.specimen.json(),
                 'destination': self.destination.json(),
                 'condition': self.condition,

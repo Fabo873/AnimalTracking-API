@@ -37,6 +37,7 @@ class ReceptionModel(db.Model):
 
     def json(self) -> Dict:
         return {'id': self.id,
+                'date': str(self.created_at),
                 'deliver_person': self.deliver_person,
                 'reciever_person': self.reciever_person.json(),
                 'specimen': self.specimen.json(),
