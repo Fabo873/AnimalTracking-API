@@ -30,7 +30,7 @@ class SpeciesModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id, 'common_name': self.common_name, 'scientific_name': self.scientific_name, 'animal_type': self.animal_type.json()}
 
     @classmethod

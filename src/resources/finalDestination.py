@@ -1,10 +1,11 @@
 from datetime import datetime
 from flask_restful import Resource, reqparse
+from flask import make_response
 from models.destination import DestinationModel
 
 from models.finalDestination import FinalDestinationModel
 from models.destination import DestinationModel
-from helpers.format import returnFormat
+from helpers.format import returnFormat, toCsv
 from models.specimen import SpecimenModel
 
 
@@ -145,3 +146,44 @@ class FinalDestinationList(Resource):
             **data)
 
         return returnFormat(message='FinalDestination list retrieved succesfully', data=[finalDestination.json() for finalDestination in finalDestination_list])
+
+class FinalDestinationCSV(Resource):
+
+    get_parser = reqparse.RequestParser()
+    get_parser.add_argument('limit', type=int, required=False,
+                            help='Limit of finalDestination to retrive', location='args')
+    get_parser.add_argument('offset', type=int, required=False,
+                            help='Offset of finalDestination to retrive', location='args')
+    get_parser.add_argument('destination_id', type=int, required=False,
+                            help='destination_id is an required param', location='args')
+    get_parser.add_argument('specimen_id', type=int, required=False,
+                            help='specimen_id is an required param', location='args')
+    get_parser.add_argument('person_id', type=int, required=False,
+                            help='person_id is an required param', location='args')
+    get_parser.add_argument('animalType_id', type=int, required=False,
+                            help='animalType_id is an required param', location='args')
+    get_parser.add_argument('species_id', type=int, required=False,
+                            help='species_id is an required param', location='args')
+    get_parser.add_argument('age_id', type=int, required=False,
+                            help='age_id is an required param', location='args')
+    get_parser.add_argument('folio', type=str, required=False,
+                            help='folio is an required param', location='args')
+    get_parser.add_argument('gender_id', type=int, required=False,
+                            help='gender_id is an required param', location='args')
+    get_parser.add_argument('date_from', type=lambda x: datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
+    get_parser.add_argument('date_to', type=lambda x: datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
+
+    def get(self):
+
+        data = FinalDestinationList.get_parser.parse_args()
+        finalDestination_list = FinalDestinationModel.find_by_attributes(
+            **data)
+        labels = FinalDestinationModel.getCsvLabels()
+        rows = [finalDestination.csv() for finalDestination in finalDestination_list]
+        response = make_response(toCsv(labels, rows))
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Content-Disposition'] = 'attachment; filename=scpecimens.csv'
+
+        return response

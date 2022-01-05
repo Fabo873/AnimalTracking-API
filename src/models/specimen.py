@@ -51,7 +51,7 @@ class SpecimenModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id,
                 'date': str(self.created_at),
                 'folio': self.folio,
@@ -64,6 +64,43 @@ class SpecimenModel(db.Model):
                 'condition': self.condition,
                 'weigth': self.weigth,
                 'size': self.size}
+
+    def csv(self) -> list:
+        return [
+            self.folio,
+            self.person.name,
+            self.person.first_lastname,
+            self.person.second_lastname,
+            self.animalType.name,
+            self.species.common_name,
+            self.species.scientific_name,
+            self.gender.name,
+            self.age.name,
+            self.destination.name,
+            self.condition,
+            str(self.weigth),
+            str(self.size),
+            str(self.created_at)
+        ]
+
+    @classmethod
+    def getCsvLabels(cls) -> list:
+       return [
+            'Folio',
+            'Nombre',
+            'Primer Apellido',
+            'Segundo Apellido',
+            'Tipo de Animal',
+            'Nombre Común',
+            'Nombre Científico',
+            'Género',
+            'Edad',
+            'Destino',
+            'Condición',
+            'Peso',
+            'Tamaño',
+            'Fecha'
+        ] 
 
     @classmethod
     def find_by_folio(cls, folio: str) -> SpecimenModel:

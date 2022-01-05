@@ -29,7 +29,7 @@ class UserModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id, 'username': self.username, 'password': self.password, 'descrypted': Encryption.decode(self.password)}
 
     @classmethod
@@ -37,7 +37,7 @@ class UserModel(db.Model):
         return cls.query.filter_by(username=username).first()
 
     @classmethod
-    def find_by_attributes(cls, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, limit: int = None, offset: int = None) -> list:
         users = cls.query
         if limit:
             users = users.limit(limit)

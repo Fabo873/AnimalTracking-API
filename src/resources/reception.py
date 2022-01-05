@@ -1,10 +1,11 @@
 from datetime import datetime
 from flask_restful import Resource, reqparse
+from flask import make_response
 from models.neighborhood import NeighborhoodModel
 
 from models.reception import ReceptionModel
 from models.person import PersonModel
-from helpers.format import returnFormat
+from helpers.format import returnFormat, toCsv
 from models.specimen import SpecimenModel
 
 
@@ -143,3 +144,46 @@ class ReceptionList(Resource):
         reception_list = ReceptionModel.find_by_attributes(**data)
 
         return returnFormat(message='Reception list retrieved succesfully', data=[reception.json() for reception in reception_list])
+
+class ReceptionCSV(Resource):
+
+    get_parser = reqparse.RequestParser()
+    get_parser.add_argument('limit', type=int, required=False,
+                            help='Limit of reception to retrive', location='args')
+    get_parser.add_argument('offset', type=int, required=False,
+                            help='Offset of reception to retrive', location='args')
+    get_parser.add_argument('reciever_person_id', type=int, required=False,
+                            help='reciever_person_id is an required param', location='args')
+    get_parser.add_argument('specimen_id', type=int, required=False,
+                            help='specimen_id is an required param', location='args')
+    get_parser.add_argument('person_id', type=int, required=False,
+                            help='person_id is an required param', location='args')
+    get_parser.add_argument('animalType_id', type=int, required=False,
+                            help='animalType_id is an required param', location='args')
+    get_parser.add_argument('species_id', type=int, required=False,
+                            help='species_id is an required param', location='args')
+    get_parser.add_argument('age_id', type=int, required=False,
+                            help='age_id is an required param', location='args')
+    get_parser.add_argument('folio', type=str, required=False,
+                            help='folio is an required param', location='args')
+    get_parser.add_argument('gender_id', type=int, required=False,
+                            help='gender_id is an required param', location='args')
+    get_parser.add_argument('neighborhood_id', type=int, required=False,
+                            help='neighborhood_id is an required param', location='args')
+    get_parser.add_argument('date_from', type=lambda x: datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
+    get_parser.add_argument('date_to', type=lambda x: datetime.strptime(x, '%d-%m-%y'), required=False,
+                             help='date is required (dd-mm-yy)', location='args')
+
+    def get(self):
+
+        data = ReceptionList.get_parser.parse_args()
+        reception_list = ReceptionModel.find_by_attributes(**data)
+        labels = ReceptionModel.getCsvLabels()
+        rows = [reception.csv() for reception in reception_list]
+        response = make_response(toCsv(labels, rows))
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Content-Disposition'] = 'attachment; filename=scpecimens.csv'
+
+        return response
+        

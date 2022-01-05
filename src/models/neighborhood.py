@@ -29,11 +29,11 @@ class NeighborhoodModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id, 'name': self.name, 'municipality': self.municipality.json()}
 
     @classmethod
-    def find_by_attributes(cls, name: str = None, municipality_id: int = None, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, name: str = None, municipality_id: int = None, limit: int = None, offset: int = None) -> list:
         neighborhoods = cls.query
         if name:
             search = "%{}%".format(name)

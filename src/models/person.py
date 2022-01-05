@@ -32,7 +32,7 @@ class PersonModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id, 'name': self.name, 'first_lastname': self.first_lastname, 'second_lastname': self.second_lastname, 'user_id': self.user_id}
 
     @classmethod
@@ -40,7 +40,7 @@ class PersonModel(db.Model):
         return cls.query.filter_by(name=name, first_lastname=first_lastname, second_lastname=second_lastname).first()
 
     @classmethod
-    def find_by_attributes(cls, name: str = None, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, name: str = None, limit: int = None, offset: int = None) -> list:
         persons = cls.query
         if name:
             search = "%{}%".format(name)

@@ -193,6 +193,130 @@ paths:
                     type: string
                   data:
                     type: object
+  /tracking/csv:
+    get:
+      tags:
+        - Tracking
+      summary: Get All Tracking Data As CSV File
+      description: Gets All Tracking Data As CSV File
+      parameters:
+        - name: specimen_id
+          in: query
+          description: The specimen_id that needs to be fetched.
+          required: false
+          schema:
+            type: boolean
+        - name: reviewed
+          in: query
+          description: The indicator that shows if the tracking has been done.
+          required: false
+          schema:
+            type: boolean
+        - name: person_id
+          in: query
+          description: The person_id that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: species_id
+          in: query
+          description: The specimen that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: gender_id
+          in: query
+          description: The gender that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: animalType_id
+          in: query
+          description: The animal type that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: destination_id
+          in: query
+          description: The destination that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: age_id
+          in: query
+          description: The age that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: folio
+          in: query
+          description: The folio that needs to be fetched.
+          required: false
+          schema:
+            type: string
+        - name: date_from
+          in: query
+          description: Date since the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          description: Date until the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+
+      operationId: getAllTrackingCSV
+      responses:
+        200:
+          description: Successful Operation - Get Tracking
+          content:
+            text/csv:
+              schema:
+                type: string
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /tracking/{id}:
     get:
       tags:
@@ -495,6 +619,123 @@ paths:
                     type: object
         404:
           description: Specimen not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+  /final/csv:
+    get:
+      tags:
+        - Final Destination
+      summary: Get All Destination Data As CSV File
+      description: Gets All Destination Data As CSV File
+      parameters:
+        - name: specimen_id
+          in: query
+          description: The specimen_id that needs to be fetched.
+          required: false
+          schema:
+            type: boolean
+        - name: person_id
+          in: query
+          description: The person_id that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: species_id
+          in: query
+          description: The specimen that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: gender_id
+          in: query
+          description: The gender that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: animalType_id
+          in: query
+          description: The animal type that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: destination_id
+          in: query
+          description: The destination that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: age_id
+          in: query
+          description: The age that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: folio
+          in: query
+          description: The folio that needs to be fetched.
+          required: false
+          schema:
+            type: string
+        - name: date_from
+          in: query
+          description: Date since the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          description: Date until the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+      operationId: getAllFinalCSV
+      responses:
+        200:
+          description: Successful Operation - Get Destination Data
+          content:
+            text/csv:
+              schema:
+                type: string
+        400:
+          description: Bad Request
           content:
             application/json:
               schema:
@@ -882,6 +1123,123 @@ paths:
                     type: string
                   data:
                     type: object
+  /reception/csv:
+    get:
+      tags:
+        - Reception
+      summary: Get All Reception Data As CSV File
+      description: Gets All Reception Data As CSV File
+      parameters:
+        - name: specimen_id
+          in: query
+          description: The specimen_id that needs to be fetched.
+          required: false
+          schema:
+            type: boolean
+        - name: person_id
+          in: query
+          description: The person_id that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: species_id
+          in: query
+          description: The specimen that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: gender_id
+          in: query
+          description: The gender that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: animalType_id
+          in: query
+          description: The animal type that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: age_id
+          in: query
+          description: The age that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: folio
+          in: query
+          description: The folio that needs to be fetched.
+          required: false
+          schema:
+            type: string
+        - name: neighborhood_id
+          in: query
+          description: The neighborhood_id that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: date_from
+          in: query
+          description: Date since the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          description: Date until the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+      operationId: getAllReceptionCSV
+      responses:
+        200:
+          description: Successful Operation - Get Destination
+          content:
+            text/csv:
+              schema:
+                type: string
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
   /reception/{id}:
     get:
       tags:
@@ -1228,6 +1586,113 @@ paths:
                     type: string
                   data:
                     type: object
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  data:
+                    type: object
+  /specimen/csv:
+    get:
+      tags:
+        - Specimen
+      summary: Get All Specimen Data AS CSV File
+      description: Gets All Specimen Data AS CSV File
+      parameters:
+        - name: neighborhood_id
+          in: query
+          description: The neighborhood_id that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: person_id
+          in: query
+          description: The person_id that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: species_id
+          in: query
+          description: The specimen that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: gender_id
+          in: query
+          description: The gender that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: animalType_id
+          in: query
+          description: The animal type that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: destination_id
+          in: query
+          description: The destination that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: age_id
+          in: query
+          description: The age that needs to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: folio
+          in: query
+          description: The folio that needs to be fetched.
+          required: false
+          schema:
+            type: string
+        - name: date_from
+          in: query
+          description: Date since the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: date_to
+          in: query
+          description: Date until the data needs to be fetched from
+          schema:
+            type: string
+            format: date-time
+        - name: limit
+          in: query
+          description: The limit number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: offset
+          in: query
+          description: The offset number of entries to be fetched.
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+      operationId: getAllSpecimenCSV
+      responses:
+        200:
+          description: Successful Operation - Get Specimen
+          content:
+            text/csv:
+              schema:
+                type: string
         500:
           description: Internal Server Error
           content:

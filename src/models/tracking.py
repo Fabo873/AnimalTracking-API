@@ -42,7 +42,7 @@ class TrackingModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id,
                 'date': str(self.date),
                 'specimen': self.specimen.json(),
@@ -52,6 +52,27 @@ class TrackingModel(db.Model):
                 'size': self.size,
                 'reviewed': self.reviewed
                 }
+    
+    def csv(self) -> list:
+        return [
+            self.specimen.folio,
+            self.destination.name,
+            self.condition,
+            str(self.weigth),
+            str(self.size),
+            str(self.date)
+        ]
+
+    @classmethod
+    def getCsvLabels(cls) -> list:
+       return [
+            'Folio',
+            'Destino',
+            'Condición',
+            'Peso',
+            'Tamaño',
+            'Fecha'
+        ] 
 
     @classmethod
     def find_by_specimen_id(cls, specimen_id: str) -> TrackingModel:

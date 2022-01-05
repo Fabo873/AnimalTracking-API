@@ -1,10 +1,18 @@
 import datetime
 
-def returnFormat(message='', data={}, status=200) -> tuple:
+def returnFormat(message:str='', data:dict={}, status:int=200) -> tuple:
     return {
         'message': message,
         'data': data
     }, status
+
+def toCsv(labels:list, data:list):
+    csv = ', '.join(labels) + '\n'
+    for row in data:
+        csv_row = ', '.join(row) + '\n'
+        csv+=csv_row
+    return csv
+
 
 def folioFormat(date:datetime, number:int, name:str, first_lastname:str = '', second_lastnmae:str = '') -> str:
     year = twoDigitFormat(date.year)

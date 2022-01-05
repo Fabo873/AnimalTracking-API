@@ -40,7 +40,7 @@ class FinalDestinationModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id,
                 'date': str(self.created_at),
                 'specimen': self.specimen.json(),
@@ -50,6 +50,29 @@ class FinalDestinationModel(db.Model):
                 'size': self.size,
                 'notes': self.notes
                 }
+
+    def csv(self) -> list:
+        return [
+            self.specimen.folio,
+            self.destination.name,
+            self.condition,
+            self.notes,
+            str(self.weigth),
+            str(self.size),
+            str(self.created_at)
+        ]
+
+    @classmethod
+    def getCsvLabels(cls) -> list:
+       return [
+            'Folio',
+            'Destino',
+            'Condición',
+            'Notas',
+            'Peso',
+            'Tamaño',
+            'Fecha'
+        ] 
 
     @classmethod
     def find_by_specimen_id(cls, specimen_id: str) -> FinalDestinationModel:

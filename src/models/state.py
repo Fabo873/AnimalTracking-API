@@ -28,7 +28,7 @@ class StateModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id, 'name': self.name, 'initials': self.initials}
 
     @classmethod
@@ -36,7 +36,7 @@ class StateModel(db.Model):
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def find_by_attributes(cls, name: str = None, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, name: str = None, limit: int = None, offset: int = None) -> list:
         states = cls.query
         if name:
             search = "%{}%".format(name)

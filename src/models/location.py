@@ -37,11 +37,11 @@ class LocationModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id, 'name': self.name, 'type': self.type, 'lat': self.lat, 'lon': self.lon, 'altitude': self.altitude, 'municipality_id': self.municipality_id}
 
     @classmethod
-    def find_by_attributes(cls, name: str = None, municipality_id: int = None, type: str = None, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, name: str = None, municipality_id: int = None, type: str = None, limit: int = None, offset: int = None) -> list:
         locations = cls.query
         if name:
             search = "%{}%".format(name)

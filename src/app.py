@@ -16,10 +16,10 @@ from resources.animalType import AnimalType, AnimalTypeList
 from resources.destination import Destination, DestinationList
 from resources.gender import Gender, GenderList
 from resources.age import Age, AgeList
-from resources.specimen import Specimen, SpecimenList
-from resources.reception import Reception, ReceptionList
-from resources.finalDestination import FinalDestination, FinalDestinationList
-from resources.tracking import Tracking, TrackingList
+from resources.specimen import Specimen, SpecimenList, SpecimenCSV
+from resources.reception import Reception, ReceptionList, ReceptionCSV
+from resources.finalDestination import FinalDestination, FinalDestinationCSV, FinalDestinationList
+from resources.tracking import Tracking, TrackingCSV, TrackingList
 from resources.neighborhood import Neighborhood, NeighborhoodList
 
 db_uri = 'mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}'.format(db_user=os.environ['DB_USER'],
@@ -66,15 +66,19 @@ api.add_resource(Age, '/age/<int:id>')
 
 api.add_resource(SpecimenList, '/specimen')
 api.add_resource(Specimen, '/specimen/<int:id>')
+api.add_resource(SpecimenCSV, '/specimen/csv')
 
 api.add_resource(ReceptionList, '/reception')
 api.add_resource(Reception, '/reception/<int:id>')
+api.add_resource(ReceptionCSV, '/reception/csv')
 
 api.add_resource(FinalDestinationList, '/final')
 api.add_resource(FinalDestination, '/final/<int:id>')
+api.add_resource(FinalDestinationCSV, '/final/csv')
 
 api.add_resource(TrackingList, '/tracking')
 api.add_resource(Tracking, '/tracking/<int:id>')
+api.add_resource(TrackingCSV, '/tracking/csv')
 
 api.add_resource(NeighborhoodList, '/neighborhood')
 api.add_resource(Neighborhood, '/neighborhood/<int:id>')

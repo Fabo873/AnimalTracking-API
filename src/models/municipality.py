@@ -29,11 +29,11 @@ class MunicipalityModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id, 'name': self.name, 'state': self.state.json()}
 
     @classmethod
-    def find_by_attributes(cls, name: str = None, state_id: int = None, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, name: str = None, state_id: int = None, limit: int = None, offset: int = None) -> list:
         municipalities = cls.query
         if name:
             search = "%{}%".format(name)

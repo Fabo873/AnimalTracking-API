@@ -23,7 +23,7 @@ class AnimalTypeModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id, 'name': self.name}
 
     @classmethod
@@ -31,7 +31,7 @@ class AnimalTypeModel(db.Model):
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def find_by_attributes(cls, name: str = None, limit: int = None, offset: int = None) -> List:
+    def find_by_attributes(cls, name: str = None, limit: int = None, offset: int = None) -> list:
         animalType = cls.query
         if name:
             search = "%{}%".format(name)

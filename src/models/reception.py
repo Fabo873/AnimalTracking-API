@@ -35,7 +35,7 @@ class ReceptionModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def json(self) -> Dict:
+    def json(self) -> dict:
         return {'id': self.id,
                 'date': str(self.created_at),
                 'deliver_person': self.deliver_person,
@@ -43,6 +43,29 @@ class ReceptionModel(db.Model):
                 'specimen': self.specimen.json(),
                 'neighborhood': self.neighborhood.json()
                 }
+
+    def csv(self) -> list:
+        return [
+            self.specimen.folio,
+            self.deliver_person,
+            self.reciever_person.name + ' ' + self.reciever_person.first_lastname + ' ' + self.reciever_person.second_lastname,
+            self.neighborhood.name,
+            self.neighborhood.municipality.name,
+            self.neighborhood.municipality.state.name,
+            str(self.created_at)
+        ]
+
+    @classmethod
+    def getCsvLabels(cls) -> list:
+       return [
+            'Folio',
+            'Persona que Entrega',
+            'Persona que Recibe',
+            'Colonia',
+            'Municipio',
+            'Estado',
+            'Fecha'
+        ] 
 
     @classmethod
     def find_by_specimen_id(cls, specimen_id: str) -> ReceptionModel:
