@@ -4,6 +4,7 @@ from datetime import datetime
 from helpers.db import db
 from typing import List, Dict
 
+from models.reception import ReceptionModel
 
 class SpecimenModel(db.Model):
     __tablename__ = 'SpecimenData'
@@ -66,10 +67,11 @@ class SpecimenModel(db.Model):
                 'size': self.size}
 
     def csv(self) -> list:
+        reception_data = ReceptionModel.find_by_specimen_id(self.id)
         return [
             self.folio,
-            self.person.name + self.person.first_lastname + self.person.second_lastname,
-            self.reception.deliver_person,
+            self.person.name + ' ' + self.person.first_lastname + ' ' + self.person.second_lastname,
+            reception_data.deliver_person,
             self.animalType.name,
             self.species.common_name,
             self.species.scientific_name,
@@ -77,9 +79,9 @@ class SpecimenModel(db.Model):
             self.age.name,
             self.destination.name,
             self.condition,
-            self.reception.neighborhood.name,
-            self.reception.neighborhood.municipality.name,
-            self.reception.neighborhood.municipality.state.name,
+            reception_data.neighborhood.name,
+            reception_data.neighborhood.municipality.name,
+            reception_data.neighborhood.municipality.state.name,
             str(self.weigth),
             str(self.size),
             str(self.created_at)
