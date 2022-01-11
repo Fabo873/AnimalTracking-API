@@ -105,9 +105,9 @@ class TrackingModel(db.Model):
         if folio:
             tracking = tracking.filter_by(folio=folio)
         if date_from:
-            tracking = tracking.filter(cls.created_at >= date_from)
+            tracking = tracking.filter(cls.date >= date_from)
         if date_to:
-            tracking = tracking.filter(cls.created_at <= date_to)
+            tracking = tracking.filter(cls.date <= date_to)
         if limit:
             tracking = tracking.limit(limit)
         if offset:

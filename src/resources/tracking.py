@@ -185,6 +185,6 @@ class TrackingCSV(Resource):
         rows = [tracking.csv() for tracking in tracking_list]
         response = make_response(toCsv(labels, rows))
         response.headers['Content-Type'] = 'text/csv'
-        response.headers['Content-Disposition'] = 'attachment; filename=scpecimens.csv'
+        response.headers['Content-Disposition'] = 'attachment; filename=tracking.csv'
 
         return response

@@ -68,9 +68,8 @@ class SpecimenModel(db.Model):
     def csv(self) -> list:
         return [
             self.folio,
-            self.person.name,
-            self.person.first_lastname,
-            self.person.second_lastname,
+            self.person.name + self.person.first_lastname + self.person.second_lastname,
+            self.reception.deliver_person,
             self.animalType.name,
             self.species.common_name,
             self.species.scientific_name,
@@ -78,6 +77,9 @@ class SpecimenModel(db.Model):
             self.age.name,
             self.destination.name,
             self.condition,
+            self.reception.neighborhood.name,
+            self.reception.neighborhood.municipality.name,
+            self.reception.neighborhood.municipality.state.name,
             str(self.weigth),
             str(self.size),
             str(self.created_at)
@@ -87,9 +89,8 @@ class SpecimenModel(db.Model):
     def getCsvLabels(cls) -> list:
        return [
             'Folio',
-            'Nombre',
-            'Primer Apellido',
-            'Segundo Apellido',
+            'Persona que Recibió',
+            'Persona que Entregó',
             'Tipo de Animal',
             'Nombre Común',
             'Nombre Científico',
@@ -97,6 +98,9 @@ class SpecimenModel(db.Model):
             'Edad',
             'Destino',
             'Condición',
+            'Colonia',
+            'Municipio',
+            'Estado',
             'Peso',
             'Tamaño',
             'Fecha'

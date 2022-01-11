@@ -184,6 +184,6 @@ class FinalDestinationCSV(Resource):
         rows = [finalDestination.csv() for finalDestination in finalDestination_list]
         response = make_response(toCsv(labels, rows))
         response.headers['Content-Type'] = 'text/csv'
-        response.headers['Content-Disposition'] = 'attachment; filename=scpecimens.csv'
+        response.headers['Content-Disposition'] = 'attachment; filename=final_destination.csv'
 
         return response
